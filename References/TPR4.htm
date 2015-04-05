@@ -1,0 +1,4124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0044)http://terminotica.upf.es/pascal/en/TPR4.htm -->
+<HTML><HEAD><TITLE></TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="MSHTML 5.50.4522.1800" name=GENERATOR></HEAD>
+<BODY text=#000000 vLink=#551a8b aLink=#ff0000 link=#0000ff bgColor=#c0c0c0>
+<P>Chapter 4</P>
+<P>of the</P>
+<P>Turbo Pascal Reference</P><BR WP="BR1"><BR WP="BR2">
+<P>The System Library Reference</P><BR WP="BR1"><BR WP="BR2">
+<P>This chapter is part of the Turbo Pascal Reference electronic freeware book 
+(C)</P>
+<P>Copyright 1992 by Ed Mitchell. This freeware book contains supplementary</P>
+<P>material to Borland Pascal Developer's Guide, published by Que 
+Corporation,</P>
+<P>1992. However, Que Corporation has no affiliation with nor responsibility 
+for</P>
+<P>the content of this free book. Please see Chapter 1 of the Turbo Pascal</P>
+<P>Reference for important information about your right to distribute and use 
+this</P>
+<P>material freely. If you find this material of use, I would appreciate 
+your</P>
+<P>purchase of one my books, such as the Borland Pascal Developer's Guide or</P>
+<P>Secrets of the Borland C++ Masters, Sams Books, 1992. Thank you.</P><BR 
+WP="BR1"><BR WP="BR2">
+<P>Note: For ease of access, Chapter 4 is continued in TPR4B.TXT.</P><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>The System Library contains several standard units, including System, 
+Crt,</P>
+<P>Dos, Overlay and Printer. These units provide a large set of routines for</P>
+<P>performing input and output, file system access and file manipulation, 
+access</P>
+<P>to DOS, full text screen support including selecting foreground and 
+background</P>
+<P>colors, mathematical functions and other features. This section describes 
+the</P>
+<P>available library routines. The Overlay and Graph units are described in 
+the</P>
+<P>Borland Pascal Developer's Guide, Que Books, 1992. The System Library</P>
+<P>Reference contains, in alphabetical order, explanations and sample code for 
+the</P>
+<P>functions, procedure and variables defined in each of the units. </P>
+<P>The procedures and functions contained in the System unit are directly</P>
+<P>accessible to your programs and units at all times; you do not need to use 
+the</P>
+<P>System unit. However, the procedures and functions available in the Crt, 
+Dos,</P>
+<P>Graph, Overlay and Printer units require that these units be named in a 
+uses</P>
+<P>statement in your program or unit. </P>
+<P>The contents of the System, Crt, Dos, Overlay and Printer units are</P>
+<P>normally contained in the TURBO.TPL library file. You can add or delete 
+units</P>
+<P>in TURBO.TPL using the TPUMOVER utility (see "Using TPUMOVER to Update</P>
+<P>TURBO.TPL" in chapter 2, "Units and Dynamic Link Libraries" in the 
+Borland</P>
+<P>Pascal Developer's Guide (Que Books, 1992)). The GRAPH unit, due to its 
+size,</P>
+<P>is kept in a separate GRAPH.TPU file.</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Overcoming Potential Name Conflicts</P>
+<P>Occassionally a unit procedure or function identifier will conflict with</P>
+<P>one of your own identifiers. When this occurs, you can still access the</P>
+<P>library identifier by prefacing it with its unit name. For example,</P>
+<P>System.Abs, or Dos.GetTime.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2">
+<P>Quick Reference to</P>
+<P>Crt, Dos and System Unit Procedures and Functions</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>procedure AssignCrt(var F: Text);</P>
+<P>procedure ClrEol;</P>
+<P>procedure ClrScr;</P>
+<P>procedure Delay(MS: Word);</P>
+<P>procedure DelLine;</P>
+<P>procedure GotoXY(X,Y: Byte);</P>
+<P>procedure HighVideo;</P>
+<P>procedure InsLine;</P>
+<P>function KeyPressed: Boolean;</P>
+<P>procedure LowVideo;</P>
+<P>procedure NormVideo;</P>
+<P>procedure NoSound;</P>
+<P>function ReadKey: Char;</P>
+<P>procedure Sound(Hz: Word);</P>
+<P>procedure TextBackground(Color: Byte);</P>
+<P>procedure TextColor(Color: Byte);</P>
+<P>procedure TextMode(Mode: Integer);</P>
+<P>function WhereX: Byte;</P>
+<P>function WhereY: Byte;</P>
+<P>procedure Window(X1,Y1,X2,Y2: Byte);</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P>
+<P>function DiskFree(Drive: Byte): Longint;</P>
+<P>function DiskSize(Drive: Byte): Longint;</P>
+<P>function DosVersion: Word;</P>
+<P>function DosExitCode: Word;</P>
+<P>function EnvCount: Integer;</P>
+<P>function EnvStr(Index: Integer): String;</P>
+<P>procedure Exec(Path: PathStr; ComLine: ComStr);</P>
+<P>function FExpand(Path: PathStr): PathStr;</P>
+<P>procedure FindFirst(Path: PathStr; Attr: Word; var F: SearchRec);</P>
+<P>procedure FindNext(var F: SearchRec);</P>
+<P>function FSearch(Path: PathStr; DirList: String): PathStr;</P>
+<P>procedure FSplit(Path: PathStr; var Dir: DirStr; </P>
+<P>var Name: NameStr; var Ext: ExtStr);</P>
+<P>procedure GetCBreak(var Break: Boolean);</P>
+<P>procedure GetDate(var Year,Month,Day,DayOfWeek: Word);</P>
+<P>function GetEnv(EnvVar: String): String;</P>
+<P>procedure GetIntVec(IntNo: Byte; var Vector: Pointer);</P>
+<P>procedure GetFAttr(var F; var Attr: Word);</P>
+<P>procedure GetFTime(var F; var Time: Longint);</P>
+<P>procedure GetTime(var Hour,Minute,Second,Sec100: Word);</P>
+<P>procedure GetVerify(var Verify: Boolean);</P>
+<P>procedure Intr(IntNo: Byte; var Regs: Registers);</P>
+<P>procedure Keep(ExitCode: Word);</P>
+<P>procedure MsDos(var Regs: Registers);</P>
+<P>procedure PackTime(var T: DateTime; var P: Longint);</P>
+<P>procedure SetCBreak(Break: Boolean);</P>
+<P>procedure SetDate(Year,Month,Day: Word);</P>
+<P>procedure SetFAttr(var F; Attr: Word);</P>
+<P>procedure SetFTime(var F; Time: Longint);</P>
+<P>procedure SetIntVec(IntNo: Byte; Vector: Pointer);</P>
+<P>procedure SetTime(Hour,Minute,Second,Sec100: Word);</P>
+<P>procedure SetVerify(Verify: Boolean);</P>
+<P>procedure SwapVectors;</P>
+<P>procedure UnpackTime(P: Longint; var T: DateTime);</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Unit: System</P>
+<P>function Abs( X : Integer) : Integer; { Note result type is same as }</P>
+<P>function Abs( X : Real ) : Real; { parameter type }</P>
+<P>function Addr ( X ) : Pointer;</P>
+<P>procedure Append ( var F : Text );</P>
+<P>function ArcTan ( X: Real );</P>
+<P>procedure AssignCrt(var F: Text );</P>
+<P>procedure BlockRead( var F: File; var Buf; Count: Word [; var Result:</P>
+<P>Word]);</P>
+<P>procedure BlockWrite( var F: File; var Buf; Count : Word [; var Result:</P>
+<P>Word]);</P>
+<P>function Chr( X : Byte) : Char;</P>
+<P>procedure Close (var F);</P>
+<P>function Concat ( S1 [, S2, ... Sn] : String ) :String;</P>
+<P>function Copy ( S: String; Index : Integer; Count: Integer ) : String;</P>
+<P>function Cos( X : Real );</P>
+<P>function CSeg : Word;</P>
+<P>procedure Dec ( var X [; N : Longint] );</P>
+<P>procedure Delete(var S: String; Index: Integer; Count: Integer);</P>
+<P>procedure Dispose ( var P : Pointer [, Destructor] );</P>
+<P>function DSeg : Word;</P>
+<P>function Eof : Boolean;</P>
+<P>function Eof(var F: Text): Boolean;</P>
+<P>function Eof(var F): Boolean;</P>
+<P>function Eoln : Boolean;</P>
+<P>function Eoln(var F: Text): Boolean;</P>
+<P>procedure Erase ( var F: File );</P>
+<P>procedure Exit;</P>
+<P>function Exp( X: Real ): Real;</P>
+<P>function FilePos ( var F ): Longint;</P>
+<P>function FileSize ( var F ) : Longint;</P>
+<P>procedure FillChar( var X; Count : Word; Value );</P>
+<P>procedure Flush ( var F: Text );</P>
+<P>function Frac ( X: Real ): Real;</P>
+<P>procedure FreeMem (var P: Pointer; Size : Word );</P>
+<P>function FSearch( Path: PathStr; DirList: String ): PathStr;</P>
+<P>procedure FSplit ( Path : PathStr; var Dir: DirStr;</P>
+<P>var Name: NameStr; var Ext: ExtStr );</P>
+<P>procedure GetDate(var Year, Month, Day, DayofWeek: Word);</P>
+<P>procedure GetDir( D: Byte; var S: String );</P>
+<P>procedure GetIntVec(IntNo: Byte; var Vector:Pointer);</P>
+<P>procedure GetMem(var P: Pointer; Size: Word);</P>
+<P>procedure GetTime(var Hour, Minute, Second, Sec100:Word);</P>
+<P>procedure Halt [ (ExitCode: Word); ]</P>
+<P>function Hi ( X ) : Byte;</P>
+<P>procedure Inc (var X [; N: Longint ] );</P>
+<P>procedure Insert( Source: String; var S: String;Index: Integer);</P>
+<P>function Int( X: Real ) : Real;</P>
+<P>function IOResult : Word;</P>
+<P>function Length ( S : String );</P>
+<P>function Ln( X : Real );</P>
+<P>function Lo(X): Byte;</P>
+<P>procedure Mark (var P: Pointer);</P>
+<P>function MaxAvail : Longint;</P>
+<P>function MemAvail : Longint;</P>
+<P>procedure MkDir(S: String);</P>
+<P>procedure Move (var Source, Dest; Count : Word);</P>
+<P>procedure New( var P: Pointer [, Init: constructor] );</P>
+<P>function Odd( X: Longint ): Boolean;</P>
+<P>function Ofs( X ): Word;</P>
+<P>function Ord( X ): Longint;</P>
+<P>procedure PackTime(var DT: DateTime; var Time:Longint);</P>
+<P>function ParamCount : Word;</P>
+<P>function ParamStr( Index: Word ) : String;</P>
+<P>function Pi : Real;</P>
+<P>function Pos ( Substr, S: String ): Byte;</P>
+<P>function Pred( X ) : &lt;same type as X&gt;;</P>
+<P>function Ptr( Seg, Ofs : Word) : Pointer;</P>
+<P>function Random [ (Range: Word) ] : Word;</P>
+<P>function Random [ (Range: Word) ] : Real;</P>
+<P>procedure Randomize;</P>
+<P>procedure Read( [var F: Text; ] V1 [, V2, ..., Vn ]);</P>
+<P>procedure Read ( F, V1 [, V2, ..., Vn ] );</P>
+<P>procedure Readln( [var F: Text; ] [V1, V2, ..., Vn ] );</P>
+<P>procedure Release (var P: Pointer);</P>
+<P>procedure Rename(var F; Newname : String );</P>
+<P>procedure Reset (var F [: File; RecSize: Word] );</P>
+<P>procedure Rewrite (var F [: File; RecSize: Word] );</P>
+<P>procedure RmDir ( S: String );</P>
+<P>procedure Round ( X: Real );</P>
+<P>procedure RunError [ ( ErrorCode: Byte ) ];</P>
+<P>procedure Seek(var F; N: Longint);</P>
+<P>function SeekEof [ ( var F: Text ); ]</P>
+<P>function SeekEoln[ (var F: Text); ]</P>
+<P>function Seg(X): Word;</P>
+<P>procedure SetTextBuf(var F: Text; var Buf [; Size:Word ] );</P>
+<P>procedure SetTime(Hour, Minute, Second, Sec100:Word);</P>
+<P>function Sin ( X: Real ) : Real;</P>
+<P>function SizeOf( X ) : Word;</P>
+<P>function SPtr : Word;</P>
+<P>function Sqr( X ) : &lt;type of X&gt;</P>
+<P>function Sqrt(X: Real) : Real;</P>
+<P>function SSeg: Word;</P>
+<P>procedure Str(X [: Width [:Decimals] ]; var S:);</P>
+<P>function Succ(X) : &lt;same type as X&gt;;</P>
+<P>function Swap(X) : &lt;same type as X&gt;;</P>
+<P>function Trunc( X: Real ): Longint;</P>
+<P>procedure Truncate(var F);</P>
+<P>procedure UnpackTime(Time: Longint; var DT:DateTime);</P>
+<P>function UpCase (Ch: Char): Char;</P>
+<P>procedure Val(S: String; var V; var Code: Integer);</P>
+<P>procedure Write( [ var F: Text; ] V1 [, V2, ..., Vn] );</P>
+<P>procedure Write( var F; V1, [, V2, ..., Nn ] );</P>
+<P>procedure Writeln( [var F:Text; ] [V1 [V2, ..., Vn]] );</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2">
+<P>Reference Section</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Abs function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration:</P>
+<P>function Abs( X : Integer) : Integer;</P>
+<P>function Abs( X : Real ) : Real;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>Writeln ( Abs( 3.14159 ):6:5 );</P>
+<P>Writeln( Abs( -3.14159 ):6:5);</P>
+<P>Writeln ( Abs (-3 ) );</P><BR WP="BR1"><BR WP="BR2">
+<P>outputs,</P>
+<P>3.14159</P>
+<P>3.14159</P>
+<P>3</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>If X is less than zero, then Abs returns -X, hence, converting X to a</P>
+<P>positive value. If X is greater than zero, then Abs returns X. Abs 
+assumes</P>
+<P>the data type of the parameter, either integer or real.</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Addr Function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Addr ( X ) : Pointer;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>var</P>
+<P>S : String;</P>
+<P>PS : ^String;</P>
+<P>...</P>
+<P>S := 'This is only a test!';</P>
+<P>PS := Addr ( S );</P>
+<P>Writeln( PS^ );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Like the @ address-of operator, Addr returns the memory address of its</P>
+<P>operand. The statement,</P>
+<P>PS := Addr(S);</P>
+<P>is equivalent to writing,</P>
+<P>PS := @S;</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Append procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Append ( var F : Text );</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>var</P>
+<P>TextFile : Text;</P>
+<P>...</P>
+<P>Assign ( TextFile, 'OLDFILE.TXT' );</P>
+<P>Append ( TextFile );</P>
+<P>Writeln ('This will be written at the end of the existing file</P>
+<P>OLDFILE.TXT');</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Like Reset, Append is used to open a text file, but instead of 
+positioning</P>
+<P>the file pointer to the beginning of the file, Append places the file 
+pointer</P>
+<P>at the very end. This way, subsequent writes are appended to the existing 
+data</P>
+<P>in the text file. Obviously, the file identifier opened by Append becomes 
+a</P>
+<P>write-only file type.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>ArcCos/ArcSin functions</P>
+<P>----------------------------------------------------------------</P>
+<P>The Turbo Pascal library omits arc-sine and arc-cosine functions. 
+However,</P>
+<P>these functions may be calculated using the the relations shown in these</P>
+<P>function definitions, returning a result in the range of [-Pi/2 .. Pi/2 
+]:</P><BR WP="BR1"><BR WP="BR2">
+<P>function ArcCos ( X : Real ): Real;</P>
+<P>var</P>
+<P>TempArcCos : Real;</P>
+<P>begin</P>
+<P>if X = 0.0 then { to avoid division by 0 }</P>
+<P>TempArcCos := Pi / 2.0</P>
+<P>else</P>
+<P>TempArcCos := ArcTan ( Sqrt ( 1 - X*X ) / X );</P>
+<P>if X &lt; 0.0 then</P>
+<P>TempArcCos := PI - TempArcCos;</P>
+<P>ArcCos := TempArcCos;</P>
+<P>end;</P><BR WP="BR1"><BR WP="BR2">
+<P>function ArcSin ( X : Real ): Real;</P>
+<P>begin</P>
+<P>if X = 1.0 then { to avoid division by 0 }</P>
+<P>ArcSin := Pi / 2.0</P>
+<P>else</P>
+<P>ArcSin := ArcTan ( X / Sqrt ( 1 - X * X ) );</P>
+<P>end;</P><BR WP="BR1"><BR WP="BR2">
+<P>See ArcTan, Cos, Sin, Sqrt, Tan</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>ArcTan function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function ArcTan ( X: Real );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Computes the arc-tangent of X, returning an angle measurement, in 
+radians.</P>
+<P>See ArcCos/ArcSin, Cos, Sin, Tan</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Assign procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Assign( var F; Name : String );</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>var</P>
+<P>InputFile : Text;</P>
+<P>...</P>
+<P>Assign ( InputFile, 'DATA.TXT' );</P>
+<P>{$I-}</P>
+<P>Reset ( InputFile );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Associates the filename Name with the file identifier F, where Name</P>
+<P>contains a standard DOS filename, optionally including drive and path</P>
+<P>specifications up to 79 characters in length and F is of any file type. 
+You</P>
+<P>must use Assign before opening a file with Reset, Rewrite or Append, or 
+when</P>
+<P>using the Erase or Rename procedures.</P>
+<P>If you Assign the null string to a file identifier, as,</P>
+<P>Assign ( InputFile, '' );</P>
+<P>a subsequent Reset opens the DOS standard input file and a Rewrite opens 
+the</P>
+<P>DOS standard output. The standard input and output files may be used with 
+DOS</P>
+<P>command line redirection.</P>
+<P>See Append, Close, Reset, Rewrite, and "File Operations" in chapter 3 of 
+the</P>
+<P>Turbo Pascal Reference.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>AssignCrt procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure AssignCrt(var F: Text );</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>if UseScreen then</P>
+<P>AssignCrt( OutFile )</P>
+<P>else</P>
+<P>AssignCrt( OutFile, 'OUTPUT.TXT' );</P>
+<P>Rewrite ( OutFile );</P>
+<P>Writeln ( OutFile, 'Report of Summer Activities');</P>
+<P>Writeln( OutFile );</P>
+<P></P>
+<P>Purpose:</P>
+<P>AssignCrt is used in conjunction with Reset and Rewrite, to access the 
+Crt</P>
+<P>screen as a file. AssignCrt may be used to provide an option in your 
+program</P>
+<P>to direct output to either a file or to the screen. When file output is</P>
+<P>selected, use Assign to specify the output text file. When the screen is</P>
+<P>requested, use AssignCrt. Then, after using Rewrite to open the output 
+device,</P>
+<P>your Write statements will route your output to the file or the screen,</P>
+<P>depending upon how you made the initial assignment to the file 
+identifier.</P>
+<P>See Assign, Close, Reset, Rewrite</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>BlockRead procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure BlockRead( var F: File; var Buf; Count: Word</P>
+<P>[; var Result: Word] );</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>See "File Operations" in chapter 3 of Turbo Pascal Reference.</P><BR 
+WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>BlockRead reads Count * RecSize bytes from the untyped file F, and places</P>
+<P>them in Buf where Buf is typically an array of byte or char of the 
+appropriate</P>
+<P>size. RecSize is the record size specified as the optional second parameter 
+to</P>
+<P>Reset or Rewrite, or the default value of 128 if no record size is specified. 
+</P>
+<P>You may optionally add a Result variable parameter which returns the 
+actual</P>
+<P>number of complete records read. In the event that the end of file is 
+reached</P>
+<P>in the middle of a record, the last partial record will not be included in 
+the</P>
+<P>Result value. If you do not use the Result variable in the call to 
+BlockRead,</P>
+<P>you should set the {$I-} compiler directive and check IOResult after ever 
+call</P>
+<P>to BlockRead.</P>
+<P>See "Disk File Operations" in chapter 2, BlockWrite, IOResult, Reset, 
+Rewrite</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2">
+<P>BlockWrite procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure BlockWrite( var F: File; var Buf; Count : Word</P>
+<P>[; var Result : Word]);</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>See "Disk File Operations" in chapter 3 of Turbo Pascal Reference.</P><BR 
+WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>BlockWrite writes Count * RecSize bytes from Buf to the untyped file F. </P>
+<P>RecSize is either the default value of 128, or is the record size specified 
+as</P>
+<P>the optional second parameter of Reset or Rewrite, and Buf is usually an 
+array</P>
+<P>of byte or char values. The optional Result variable parameter returns 
+the</P>
+<P>number of complete records actually written to the file. If you do not use 
+the</P>
+<P>Result variable in the call to BlockWrite, you should set the {$I-} 
+compiler</P>
+<P>directive and check IOResult after ever call to BlockWrite.</P>
+<P>See "Disk File Operations" in chapter 3, BlockRead, Reset, Rewrite</P><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>CheckBreak</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>CheckBreak: Boolean; {Default = True}</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>By setting CheckBreak to False, you can disable the Ctrl-Break key, used</P>
+<P>to interrupt program execution. When CheckBreak is True, pressing 
+Ctrl-Break</P>
+<P>will terminate program execution at the next output sent to the screen.</P>
+<P>See GetCBreak, SetCBreak</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>CheckEOF</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>CheckEOF : Boolean; {Default = False}</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>If you press Ctrl-Z at the keyboard, an end-of-file character may be</P>
+<P>returned to the input, depending on the setting of CheckEof. Setting 
+CheckEof</P>
+<P>to True enables end-of-file character generation; setting CheckEof to 
+False</P>
+<P>disables this operation.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>CheckSnow</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>CheckSnow: Boolean; {Default = True}</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>The setting of CheckSnow is used in conjunction with the DirectVideo</P>
+<P>boolean variable. On older or less expensive CGA color displays, the 
+color</P>
+<P>graphics adaptor uses single ported memory. When the video display 
+circuitry</P>
+<P>and the CPU both try to access the memory at the same time a video effect</P>
+<P>referred to as "snow" appears on the screen. The solution to this problem</P>
+<P>involves changing the low level output routines so that the CPU only 
+updates</P>
+<P>the video memory area during horizontal or vertical screen retrace intervals. 
+</P>
+<P>You don't need to worry about the technical details of all that. However, 
+if,</P>
+<P>when running your applications in a color display environment and you see 
+snow</P>
+<P>or static on the screen, set CheckSnow to True. As a last resort, you may 
+need</P>
+<P>to set DirectVideo to False, however, this will result in extremely slow 
+screen</P>
+<P>updates since all screen I/O will be forced to go through the BIOS 
+interface.</P>
+<P>According to Borland, the value of CheckSnow defaults to True, initially. 
+</P>
+<P>However, I found that on my system, CheckSnow defaults to False. For 
+fastest</P>
+<P>video output, you want CheckSnow to be False and DirectVideo to be True,</P>
+<P>consistent with avoiding a video snow fall.</P>
+<P>See DirectVideo</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>ChDir procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure ChDir ( S : String );</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>{$I-}</P>
+<P>ChDir('\TP\UTILS');</P>
+<P>ErrCode := IOResult;</P>
+<P>if ErrCode &lt;&gt; 0 then { handle error condition ... }</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Purpose:</P>
+<P>Changes the current subdirectory to the directory specified by the string</P>
+<P>S. ChDir works the same as the DOS commands CD or CHDIR, making the 
+directory</P>
+<P>in S the current working directory. You may also include a drive name, by</P>
+<P>prefacing the subdirectory pathname with the drive letter, as, </P>
+<P>ChrDir ('D:\TP\UTILS');</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Chr function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Chr( X : Byte) : Char;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>var</P>
+<P>I : Integer;</P>
+<P>S : String;</P>
+<P>...</P>
+<P>{ Convert all upper case letters to lower case letters }</P>
+<P>for I := 1 to Length(S) do</P>
+<P>if (S[I]&gt;='A') and (S[I]&lt;='Z') then</P>
+<P>S[I] := Chr( Ord(S[I]) + 32 );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Chr (often pronounced "char") is used to translate the integer valued 
+byte</P>
+<P>expression to a char-type value. Effectively, Chr converts an ASCII 
+character</P>
+<P>code in the range 0 to 255 to a character type. To convert a character 
+value</P>
+<P>to an integer, use the Ord function.</P>
+<P>See Ord</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Close procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Close (var F);</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>Assign ( OutFile, 'SCRATCH.DAT' );</P>
+<P>Rewrite ( OutFile );</P>
+<P>....</P>
+<P>Close ( OutFile );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>When you are finished reading or writing data to a file, that file must 
+be</P>
+<P>closed by calling the Close procedure. For output files, Close causes any</P>
+<P>remaining internal buffers to be written to disk. Failure to call Close 
+may</P>
+<P>result in incomplete data being stored in the file. As with all file</P>
+<P>operations, you should se the {$I-} compiler directive and check the value 
+of</P>
+<P>IOResult to determine if the Close was successful.</P>
+<P>See Append, Assign, Reset, Rewrite</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>ClrEol procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure ClrEol;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>Gotoxy ( 1, 10 ); { Clear the 10th line down in the screen</P>
+<P>or Window }</P>
+<P>ClrEol;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Beginning at the current cursor location, ClrEol erases the screen to the</P>
+<P>right edge of the screen (or the edge of the viewing window if the Window</P>
+<P>procedure has been called), setting the erased area to blanks displayed 
+the</P>
+<P>current background color (see TextBackground). By using Gotoxy to position 
+the</P>
+<P>cursor, you can use ClrEol to erase portions of lines anywhere on the 
+screen.</P>
+<P>See ClrScr, TextBackground, Window</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>ClrScr procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure ClrScr;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>{ Clear the screen }</P>
+<P>ClrScr;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Clears the display screen (or the area within the region defined by the</P>
+<P>Window procedure) and sets the screen color to the current TextBackground</P>
+<P>color. The cursor position is set to the upper left corner of the screen 
+(or</P>
+<P>Window region).</P>
+<P>See ClrEol, TextBackground, Window</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Concat function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Concat ( S1 [, S2, ... Sn] : String ) : String;</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Example:</P>
+<P>S := Concat ( 'Hello', ' World', '!' );</P>
+<P>{is equivalent to writing</P>
+<P>S := 'Hello' + ' World' + '!';</P>
+<P>}</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Concat takes a parameter list of string values to be concatenated or</P>
+<P>joined together, and appends the second string onto the end of the first, 
+and</P>
+<P>the third on to the end of that, and so on. Additional string values, in 
+turn,</P>
+<P>are appended to the previously joined values in the list up to a maximum 
+string</P>
+<P>length of 255. Any text beyond 255 characters is disgarded and the result</P>
+<P>string is truncated to 255 characters.</P>
+<P>See Copy, Delete, Insert, Length, Pos</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Copy function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Copy ( S: String; Index : Integer; </P>
+<P>Count : Integer ) : String;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>Writeln( Copy( 'ABCDEFGHIJKLMN', 4, 3 ) );</P><BR WP="BR1"><BR WP="BR2">
+<P>outputs,</P><BR WP="BR1"><BR WP="BR2">
+<P>DEF</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Extracts and returns a subset of string S, beginning at the Index'th</P>
+<P>character position and extending for Count bytes. If Index is greater 
+than</P>
+<P>Length(S), Copy returns a null string. If Index + Count is greater than</P>
+<P>Length(S), then Copy returns all the characters between Index and 
+Length(S).</P>
+<P>If you've programmed string operations in the BASIC language, you have</P>
+<P>undoubtedly appreciated the convenience of BASIC's LEFT$, MID$ and RIGHT$</P>
+<P>functions. Copy is equivalent to MID$. By setting Copy's Index to 1, Copy</P>
+<P>operates the same as LEFT$. You can implement a RIGHT$ equivalent function 
+by</P>
+<P>writing,</P>
+<P>function Right ( S : String; Index: Integer ) : String;</P>
+<P>begin</P>
+<P>Right := Copy ( S, Length(S) - Index + 1, 255 );</P>
+<P>end;</P><BR WP="BR1"><BR WP="BR2">
+<P>See Concat, Delete, Insert, Length, Pos</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Cos function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Cos( X : Real );</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>GetAspectRatio ( Xasp, Yasp );</P>
+<P>{ Compute (X,Y) 10% further out than the radius. }</P>
+<P>X := Round( 1.1 * Radius * Cos ( AngleInRadians ) );</P>
+<P>Y := - Round( 1.1 * Radius * Sin ( AngleInRadians ) *</P>
+<P>(Xasp/Yasp));</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Computes and returns the cosine of X, where X is an angle measurement in</P>
+<P>radians. Note that many of the graphics routines use an angle measurement 
+in</P>
+<P>degrees. To convert from degrees to radians, divide the degree measurement 
+by</P>
+<P>180 / Pi.</P>
+<P>See ArcSin/ArcCos, ArcTan, Sin, Tan</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>CSeg function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function CSeg : Word;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>CSeg returns the value of the 80x86 CS register in use by the code that</P>
+<P>called CSeg.</P>
+<P>See DSeg, SSeg</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Dec function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Dec ( var X [; N : Longint] );</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>Dec(I); { Equivalent to I := I - 1; }</P>
+<P>Dec(I, Amount); { Equivalent to I := I - Amount; }</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Purpose:</P>
+<P>If given a single ordinal-type variable parameter, X, Dec uses optimized</P>
+<P>code to decrement the value of X by 1 and is equivalent to,</P>
+<P>X := X - 1;</P>
+<P>If the second parameter N is given, Dec decrements X by N, and is equivalent 
+to</P>
+<P>X := X - N;</P>
+<P>See Inc, Pred, Succ</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Delay procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Delay (Ms : Word);</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>repeat</P>
+<P>SetPalette ( Random(GetMaxColors), Random(GetMaxColors));</P>
+<P>Delay ( 50 );</P>
+<P>until Keypressed;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Delays or pauses execution of the program for approximately the number of</P>
+<P>milliseconds specified by the parameter Ms.</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Delete procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Delete(var S: String; Index: Integer; </P>
+<P>Count: Integer);</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>var</P>
+<P>s : string;</P>
+<P>begin</P>
+<P>S:='ABCDEFGHIJKLM';</P>
+<P>Delete(S,4,3);</P>
+<P>Writeln(s);</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>outputs</P><BR WP="BR1"><BR WP="BR2">
+<P>ABCGHIJKLM</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Removes or deletes a subsection of string S, beginning at the Index'th</P>
+<P>position and continuing for Count characters. To delete all of the 
+characters</P>
+<P>to the right of and including the Index position, you can substitute 255 
+for</P>
+<P>the Count parameter, like this:</P>
+<P>Delete(S, IndexPos, 255);</P>
+<P>Since IndexPos + Count exceeds the length of the string, the remaining</P>
+<P>characters are deleted. If Index is greater than Length(S) then no 
+characters</P>
+<P>are deleted.</P>
+<P>See Concat, Copy, Insert, Length, Pos</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P></P>
+<P>DelLine procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure DelLine;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>procedure ScrollUp ( Y : Integer; NumLines : Integer );</P>
+<P>var</P>
+<P>I : Integer;</P>
+<P>begin</P>
+<P>Gotoxy ( 1, Y );</P>
+<P>for I := 1 to NumLines do</P>
+<P>DelLine;</P>
+<P>end;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Use DelLine to scroll all the lines below the current cursor location up</P>
+<P>by 1 line. The routine ScrollUp, shown above, implements a generic scroll 
+up</P>
+<P>routine useful in a variety of applications. Since DelLine operates 
+relative</P>
+<P>to the current settings of the Window procedure, DelLine can scroll lines</P>
+<P>within the Window region on the screen.</P>
+<P>See InsLine, Window</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>DirectVideo variable</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>DirectVideo: Boolean; {Default = True}</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Turbo Pascal programs, like most programs written for the PC family of</P>
+<P>computers, perform output to the video display by copying their text and 
+video</P>
+<P>attributes directly into the video memory. This provides the fastest 
+possible</P>
+<P>screen updates. In some situations, this can result in the appearance of</P>
+<P>"video snow" or "static". When this occurs, set the CheckSnow variable to 
+True</P>
+<P>(See CheckSnow).</P>
+<P>By setting DirectVideo to False, programs will perform their output by</P>
+<P>calling the BIOS video routines. This results in greatly reduced display</P>
+<P>performance.</P>
+<P>See CheckSnow</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>DiskFree function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function DiskFree( Drive: Byte ) : Longint;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Where Drive selects a disk drive (0=A, 1=B, 2=C, ...), DiskFree returns</P>
+<P>the number of bytes of remaining free space, or -1 if Drive selects a</P>
+<P>non-existent drive.</P>
+<P>See DiskSize, GetDir</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>DiskSize function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function DiskSize( Drive: Byte ): Longint;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Where Drive selects a disk drive (0=A, 1=B, 2=C, ...), DiskSize returns</P>
+<P>the capacity of the drive, in bytes, or -1 if Drive selects a 
+non-existent</P>
+<P>drive.</P>
+<P>See DiskFree, GetDir </P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Dispose procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Dispose ( var P : Pointer [, Destructor] );</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Example:</P>
+<P>type</P>
+<P>PString = ^String;</P>
+<P>var</P>
+<P>S : PString;</P>
+<P>...</P>
+<P>New( S );</P>
+<P>S^:='Goodbye World!'';</P>
+<P>Dispose (S);</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Deallocates the dynamic memory allocation used by the item or object</P>
+<P>pointed to by parameter variable P. When disposing of objects (see chapter 
+5,</P>
+<P>"Object Oriented Programming"), an optional second parameter may specify 
+the</P>
+<P>name of the destructor method for the object pointed to by P. When used 
+in</P>
+<P>this form, Dispose first calls the destructor method of the object prior 
+to</P>
+<P>deallocating the the memory pointed to by P.</P><BR WP="BR1"><BR WP="BR2">
+<P>Important!</P>
+<P>After calling Dispose, the value of P is no longer valid. A commom</P>
+<P>programming error is to continue using a pointer after it has been 
+deallocated.</P>
+<P>Because the pointer may still point to the original location in memory 
+where</P>
+<P>the object had been allocated and since that memory may not be 
+immediately</P>
+<P>claimed for use by another entity, this will sometimes work temporarily. </P>
+<P>However, to do so is a serious programming error and may cause the program 
+to</P>
+<P>crash! Don't do it!</P>
+<P>When calling Dispose, P must be a valid pointer. If P does not point to</P>
+<P>the memory used by the heap system, Dispose will issue a run-time error 
+and</P>
+<P>stop execution of the program.</P>
+<P>See FreeMem, GetMem, Mark, New, Release</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>DosError variable</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>DosError: Integer;</P>
+<P>Unit: Dos</P>
+<P>Purpose:</P>
+<P>DosError contains the DOS result code after performing a DOS procedure</P>
+<P>such as FindFirst/FindNext.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>DosExitCode function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration:</P>
+<P>function DosExitCode : Word;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>When another program, or COMMAND.COM is executed from within the current</P>
+<P>program by calling the Exec procedure, the executed program may return a</P>
+<P>DOS-level exit code. The value of this return code may be examined by 
+checking</P>
+<P>the result returned by DosExitCode. The return values correspond to the</P>
+<P>following:</P>
+<P>0=normal termination</P>
+<P>1=Subprogram terminated by user pressing Ctrl-C</P>
+<P>2=Subprogram terminated due to a DOS device error (e.g. drive door open)</P>
+<P>3=Subprogram terminated by the Keep procedure.</P><BR WP="BR1"><BR WP="BR2">
+<P>See Exec</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>DosVersion function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function DosVersion : Word;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>See FSearch for an example.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>To determine the version of DOS used by the computer that the program is</P>
+<P>running on, call DosVersion. The low byte returns the main version number 
+and</P>
+<P>the high byte returns the minor version number. For example, for DOS 5.0 
+the</P>
+<P>low byte is 5 and the high byte is 0. You can access the high and low 
+bytes</P>
+<P>using the Hi and Lo functions, respectively.</P>
+<P>See Hi, Lo</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>DSeg function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: function DSeg : Word;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Use DSeg to access the current value of the DS register.</P>
+<P>See CSeg, SSeg</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>EnvCount function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration:</P>
+<P>function EnvCount : Integer;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>for I := 1 to EnvCount do</P>
+<P>Writeln ( EnvStr( I ) );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Use EnvCount in conjunction with EnvStr to access the string values 
+stored</P>
+<P>in the DOS environment variable area. The DOS environment keeps track of 
+your</P>
+<P>PATH=, COMSPEC=, SET= statements and so on. You can access the current 
+values</P>
+<P>stored in the DOS environment through the EnvCount variable, which returns 
+the</P>
+<P>total number of environment strings (each &lt;variable&gt;=&lt;value&gt; 
+declaration is</P>
+<P>treated as a single string), and EnvStr to access the n'th environment 
+string.</P>
+<P>See EnvStr, GetEnv</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>EnvStr function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function EnvStr( Index: Integer );</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>See EnvCount</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>When the Index value is in the range of 1 to EnvCount, EnvStr returns the</P>
+<P>values of the Index'th environment variable. If Index is out of range, 
+EnvStr</P>
+<P>returns a null string. Also see Envcount.</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Eof function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Eof : Boolean;</P>
+<P>or</P>
+<P>function Eof( var F: Text ) : Boolean;</P>
+<P>or</P>
+<P>function Eof( var F: File ) : Boolean;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>Program DemoEof;</P>
+<P>var</P>
+<P>InFile : Text;</P>
+<P>TextLine : String;</P>
+<P>begin</P>
+<P>Assign( Infile, 'TEMP.PAS' );</P>
+<P>Reset( Infile );</P>
+<P>while not Eof( Infile ) do</P>
+<P>begin</P>
+<P>Readln( Infile, TextLine );</P>
+<P>Writeln( TextLine );</P>
+<P>end;</P>
+<P>Close( Infile );</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Eof is used to detect the end of a file while reading input from the 
+file.</P>
+<P>In the first form, if Eof specifies no file parameter, Eof checks the 
+standard</P>
+<P>input file and returns True if an end of file condition is detect, 
+otherwise</P>
+<P>False. Typing Ctrl-Z at the keyboard sets an Eof condition on the 
+standard</P>
+<P>input.</P>
+<P>When used with a text file, Eof(F) returns True if the current file</P>
+<P>position is past the last character of the file, otherwise False.</P>
+<P>When used with a typed or untyped file, Eof(F) returns True if the 
+current</P>
+<P>position is past the last record of the file, otherwise False.</P>
+<P></P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Eoln function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration:</P>
+<P>function Eoln : Boolean;</P>
+<P>or</P>
+<P>function Eoln ( var F : Text ) : Boolean;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>while not Eoln do { Reads characters until Enter pressed }</P>
+<P>Read(ch);</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Whenever Eoln is called, Eoln returns True if the current location in the</P>
+<P>file is an end-of-line (or carriage-return) marker, or False if it is not. 
+</P>
+<P>Whenused without the file parameter, Eoln checks for the Enter key being</P>
+<P>pressed at the keyboard.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Erase procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Erase ( var F: File );</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>Assign( F, 'KILL-ME.TXT' );</P>
+<P>{$I-}</P>
+<P>Erase ( F );</P>
+<P>ErrCode := IOResult;</P>
+<P>if ErrCode &lt;&gt; 0 then { process error condition }</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Purpose:</P>
+<P>Used in conjunction with Assign, to assign a filename to the file 
+variable</P>
+<P>F, Erase deletes the named file from the DOS directory structure. Always</P>
+<P>insure that F is closed before calling Erase.</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Exec procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Exec ( Path, CmdLine : String );</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>{ For regular, non-Turbo Vision applications, use this example code }</P>
+<P>SwapVectors;</P>
+<P>Exec( ProgName, ParamStr );</P>
+<P>SwapVectors;</P>
+<P></P>
+<P>{ Use this example code when using Exec from within Turbo Vision applications 
+}</P>
+<P>ClrScr;</P>
+<P>DoneSysError;</P>
+<P>DoneEvents;</P>
+<P>DoneVideo;</P>
+<P>DoneMemory;</P>
+<P>SetMemTop(HeapPtr);</P>
+<P>SwapVectors;</P>
+<P>Exec( ProgName, ParamStr );</P>
+<P>SwapVectors;</P>
+<P>SetMemTop(HeapEnd);</P>
+<P>InitMemory;</P>
+<P>InitVideo;</P>
+<P>InitEvents;</P>
+<P>InitSysError;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Where Path is the name of a program to execute (with optional drive and</P>
+<P>optional subdirectory path), Exec loads and executes the program specified 
+and</P>
+<P>passes the contents of the CmdLine parameter to that program. The 
+executed</P>
+<P>program can examine the contents of CmdLine as if it had been launched from 
+the</P>
+<P>DOS command line (See ParamStr). After control returns from the Exec</P>
+<P>procedure, you can call DosExitCode to see if the program ran 
+successfully.</P><BR WP="BR1"><BR WP="BR2">
+<P>Important! Setting Heap Size</P>
+<P>When using the Exec procedure, you must insure that adequate memory is</P>
+<P>available to launch the desired program. Normally, Turbo Pascal programs</P>
+<P>allocate all of the available free memory to the heap management system. 
+When</P>
+<P>this occurs, there's no memory left in which to load and execute another</P>
+<P>program! </P>
+<P>The solution is to specify the maximum heap size required by your 
+program.</P>
+<P>If you are using the IDE, select the Options menu, Memory sizes selection, 
+and</P>
+<P>enter a new value for the High heap limit such as 16,384 bytes or what ever 
+is</P>
+<P>appropriate for your application. The default value is 655,360 bytes. </P>
+<P>You may also imbed a compiler directive {$M} to set memory allocation</P>
+<P>within the source code (see Chapters 2 and 3). If using the command line</P>
+<P>compilers TPC or TPCX (or BPC), you may set the heap size using the 
+command</P>
+<P>line switch /$M to specify the stacksize, and mininum and maximum heap 
+values.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2">
+<P>Exit procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Exit;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Call Exit to cause a procedure or function to immediately return back to</P>
+<P>the calling code (be sure to take into account that you may not have a 
+valid</P>
+<P>value assigned for the function result). Exit is often used to 
+prematurely</P>
+<P>terminate execution of a subroutine when an error has occurred and has 
+the</P>
+<P>equivalent effect of a goto jump to the end statement of the procedure or</P>
+<P>function.</P>
+<P>When used in the main body of a program, Exit results in termination of</P>
+<P>the program.</P>
+<P>See ExitProc, Halt</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>ErrorAddr variable</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>ErrorAddr: Pointer = nil;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>If a program terminates abnormally, ErrorAddr contains the address where</P>
+<P>the error occurred, or possibly nil. The variable ExitCode contains the 
+error</P>
+<P>code corresponding to the problem that caused the program to terminate. 
+See</P>
+<P>ExitProc for details.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>ExitCode variable</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>ExitCode: Integer = 0;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>If a program terminates abnormally ExitCode contains the error code</P>
+<P>corresponding to the problem that caused program terminatation. An ExitCode 
+of</P>
+<P>zero means that no error occurred. See ExitProc for details.</P><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>ExitProc variable</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>ExitProc: Pointer = nil;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>{ Demonstration of installing and using an exit handler procedure. You can 
+use</P>
+<P>this code example in your programs. Modify ExitHandler </P>
+<P>to check for the conditions that your program requires, to close files, 
+or</P>
+<P>whatever exit clean up is needed by your application. </P>
+<P>}</P>
+<P>var</P>
+<P>LastExitProc : Pointer;</P><BR WP="BR1"><BR WP="BR2">
+<P>procedure ExitHandler; far;</P>
+<P>begin</P>
+<P>{ Restore previous exit handler address }</P>
+<P>ExitProc := LastExitProc;</P><BR WP="BR1"><BR WP="BR2">
+<P>{ Process exit codes or other operations here }</P>
+<P>Writeln('ExitCode=',ExitCode);</P>
+<P>if ErrorAddr = nil then</P>
+<P>Writeln('ErrorAddr=nil')</P>
+<P>else</P>
+<P>Writeln('ErrorAddr is not nil');</P>
+<P>{If you display an error message here, be sure to clear</P>
+<P>the error condition by setting ErrorAddr := nil to</P>
+<P>prevent other exit handlers from catching this</P>
+<P>error }</P>
+<P>end;</P><BR WP="BR1"><BR WP="BR2">
+<P>begin</P>
+<P>{ Install the exit handler procedure }</P>
+<P>LastExitProc := ExitProc;</P>
+<P>ExitProc := @ExitHandler;</P><BR WP="BR1"><BR WP="BR2">
+<P>{Main program code goes here as per a normal program}</P>
+<P>{If Exit is called in the main section, or Halt is called</P>
+<P>anywhere in the program, or a run-time error occurs, then</P>
+<P>as part of program termination, your ExitHandler</P>
+<P>procedure will be called.}</P>
+<P>ErrorAddr := nil;</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>ExitProc points to a far procedure to be executed as part of the normal 
+or</P>
+<P>abnormal termination of your program, or when the Halt procedure is called. 
+</P>
+<P>Inside your program's exit handling procedure you can check for abnormal</P>
+<P>program termination by examining the values of ExitCode and ErrorAddr. If</P>
+<P>ErrorAddr is not equal to nil, then a run-time error occurred and 
+ExitCode</P>
+<P>contains the corresponding error code. If ErrorAddr is nil and ExitCode 
+is</P>
+<P>non-zero, then the program was terminated by calling Halt and ExitCode is 
+the</P>
+<P>value set by the Halt procedure. A normal termination produces values of</P>
+<P>ExitCode = 0 and ErrorAddr=nil.</P>
+<P>When the program exits, the run-time system calls the procedure pointed 
+to</P>
+<P>by ExitProc. Since a program may have more than one exit handler (such as 
+for</P>
+<P>each unit), they are strung together in a chain of exit procedures. Upon</P>
+<P>return from the ExitProc procedure, the run-time system checks the value 
+of</P>
+<P>ExitProc and if non-nil, the run-time system again invokes whatever 
+ExitProc</P>
+<P>points to. Eventually, when there are no more error handlers to invoke,</P>
+<P>ExitProc is set to nil and the run-time system returns to DOS. </P>
+<P>This chain of exit procedures is linked together so that each unit, as</P>
+<P>well as the run-time system, may have a chance to perform exit handling 
+clean</P>
+<P>up operations. Such operations may include closing files, restoring 
+interrupt</P>
+<P>vectors, erasing incomplete files and so on. The chain is constructed by</P>
+<P>having each unit or program that installs an exit procedure first save 
+the</P>
+<P>address of the existing exit procedure into a local variable before 
+setting</P>
+<P>ExitProc equal to the address of the new exit handler. Then, inside the 
+exit</P>
+<P>handler, immediately reset ExitProc to the saved value. In this way, when 
+your</P>
+<P>exit handler finishes up, it returns to the run-time system with ExitProc 
+now</P>
+<P>pointing to the exit handler that was installed before this exit procedure. 
+</P>
+<P>Thelast exit procedure in the chain (which is the default exit handler), 
+sets</P>
+<P>ExitProc to nil to mark the end of the chain.</P>
+<P>The example code above shows how an exit procedure is inserted into a</P>
+<P>program. You may also add such code into a unit's initialization section. 
+In</P>
+<P>this way, each unit can have its own exit code for cleaning up after 
+itself.</P><BR WP="BR1"><BR WP="BR2">
+<P>Important! Reset ErrorAddr to nil</P>
+<P>If your own program exit code examines and processes the ErrorAddr and</P>
+<P>ExitCode results, you should set ErrorAddr to nil before leaving your exit 
+code</P>
+<P>procedure. If you fail to do this, an exit handler located elsewhere in 
+the</P>
+<P>program or run-time system may also display an error message.</P><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Exp function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Exp( X: Real ): Real;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Computes and returns the value of e raised to X'th power where Exp(1) is</P>
+<P>approximately equal to 2.7182818. To compute an arbitrary A to the X'th 
+power,</P>
+<P>use this relation:</P>
+<P>AX = exp( X * Ln(A) )</P>
+<P>where Ln is the natural logarithm function (see Ln)</P>
+<P>See Ln</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>FExpand function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function FExpand ( Path : PathStr );</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>To determine the current subdirectory, call FExpand, setting Path to a</P>
+<P>null string, like this:</P>
+<P>Writeln('Current directory is: ', FExpand ('') );</P>
+<P>FExpand returns as its result the full drive and subdirectory pathname. If 
+you</P>
+<P>set Path to a filename, FExpand adds that filename to the resulting path 
+to</P>
+<P>create a fully qualified file name. All values, including Path, are 
+converted</P>
+<P>to upper case characters. Any errors encountered are returned through</P>
+<P>IOResult.</P>
+<P>See FSplit</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>FilePos function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function FilePos ( var F ): Longint;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>FilePos returns the current file position or record number within the 
+open</P>
+<P>file F (F may be typed on untyped but not a Text file) The first position 
+in</P>
+<P>the file is zero. Any errors encountered are returned through IOResult.</P>
+<P>See Seek</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>FileSize function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function FileSize ( var F ) : Longint;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>var { Display size of a text file }</P>
+<P>F: File of Char;</P>
+<P>begin</P>
+<P>Assign(F,'TEST.PAS');</P>
+<P>Reset( F );</P>
+<P>Writeln( FileSize( F ));</P>
+<P>Readln;</P>
+<P>Close ( F );</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Where F is an open typed file, FileSize(F) provides the number of</P>
+<P>components currently stored in the file. While FileSize does not work on 
+Text</P>
+<P>files, you can cheat a little and open a text file as a typed File of Char, 
+as</P>
+<P>shown above, and then FileSize returns the number of bytes in the text 
+file.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2">
+<P>FillChar procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure FillChar( var X; Count : Word; Value );</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Example:</P>
+<P>var</P>
+<P>AString : String;</P>
+<P>AnArray : Array[1..30] of Integer;</P>
+<P>...</P>
+<P>FillChar ( AString, SizeOf( AString ), ' ' );</P>
+<P>AString[0] := Chr(80);</P>
+<P>FillChar ( AnArray, SizeOf( AnArray), 0 );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>FillChar copies Value into Count number of bytes of X, where X is a</P>
+<P>variable of any type, usually an array or record structure. FillChar is 
+often</P>
+<P>used as a fast and easy method of initializing arrays to zero, or strings 
+to</P>
+<P>blanks. When initializing string values, make certain that you manually 
+set</P>
+<P>the string's length byte, as shown in the example above. You can use 
+FillChar</P>
+<P>on part of an array or string by changing the values of X and Count. For</P>
+<P>example, </P>
+<P>FillChar ( AString[70], 10, ' ' );</P>
+<P>sets the last 10 characters of AString to blanks. Be careful not to run 
+off</P>
+<P>the end of the buffer to which values are written. To do so is a commom 
+but</P>
+<P>difficult to track down problem. Particularly since writing past the end 
+of</P>
+<P>one variable will overwrite the contents of the next declared variable in 
+the</P>
+<P>var declarations. This is difficult to track down because the problem shows 
+up</P>
+<P>as incorrect values in some other variable, not the one on which FillChar 
+is</P>
+<P>used!</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2">
+<P>FindFirst</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure FindFirst( Path : String; Attr : Word; </P>
+<P>var S : SearchRec );</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>{ This is an excerpt from the TVSHELL8 program in the Borland</P>
+<P>Pascal Developer's Guide }</P>
+<P>var</P>
+<P>DirEntry : SearchRec; { Holds the contents of a</P>
+<P>directory entry</P>
+<P>consisting of filename, size, etc }</P>
+<P>FileCount : Integer;</P>
+<P>IsADirectory : Boolean;</P>
+<P>begin</P>
+<P>FindFirst( Path + '*.*', AnyFile, DirEntry );</P>
+<P>FileCount := 0;</P>
+<P>while DosError = 0 do</P>
+<P>begin</P>
+<P>if DirEntry.Name[1] &lt;&gt; '.' then</P>
+<P>{Add all names other than those beginning with '.'.</P>
+<P>This eliminates our displaying the '.' and '..'</P>
+<P>names used by DOS}</P>
+<P>begin</P>
+<P>IsADirectory := (DirEntry.Attr and Directory) =</P>
+<P>Directory;</P>
+<P>if IsADirectory and FilesOnly then goto 1;</P>
+<P>{ Note that normally Goto's are to be avoided but in</P>
+<P>this instance, a single forward jump reduces the</P>
+<P>number of boolean conditions that need to be tested}</P>
+<P>if not IsADirectory then</P>
+<P>DirEntry.Name := LowerCase (DirEntry.Name);</P>
+<P>{We convert file names to lowercase and leave</P>
+<P>directory names in upper case for ease of reading</P>
+<P>the directory listing}</P>
+<P>FileCount := FileCount + 1;</P>
+<P>Inc(StartingEntry);</P>
+<P>DirectoryCollection^.AtInsert(StartingEntry,</P>
+<P>New(PDirectoryEntry, Init( SubLevel, FileCount,</P>
+<P>DirEntry )));</P>
+<P>1:</P>
+<P>end; { begin }</P>
+<P>FindNext( DirEntry );</P>
+<P>end; { begin }</P>
+<P>end; {TDirList.ReadDirectory}</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>FindFirst is used to initiate a directory search (and should be used in</P>
+<P>conjunction with FindNext). Path is set to the name of the file to find 
+and</P>
+<P>may contain a combination of characters and DOS wildcard characters * and ?. 
+</P>
+<P>For example, by setting Path := '*.DOC' you prepare to search for all 
+files</P>
+<P>ending in .DOC. You can further narrow the search by specifying a file</P>
+<P>attribute, Attr, selected from one of the following constants:</P>
+<P>ReadOnly = $01;</P>
+<P>Hidden = $02;</P>
+<P>SysFile = $04;</P>
+<P>VolumeID = $08;</P>
+<P>Directory = $10;</P>
+<P>Archive = $20;</P>
+<P>AnyFile = $3F;</P>
+<P>By selecting one of the file attributes you may restrict the search to</P>
+<P>directory names only, read-only files, or any type of file. You can 
+determine</P>
+<P>if the end of the directory has been reached or no files were found by 
+checking</P>
+<P>the DosError function. DosError returns 0 if no error occurred, or non-zero 
+if</P>
+<P>an error occurred.</P>
+<P>The record S returns the filename and other file attributes of the first</P>
+<P>matching file that is located, where SearchRec is defined as:</P>
+<P>type</P>
+<P>SearchRec = record</P>
+<P>Fill: array[1..21] of Byte;</P>
+<P>Attr : Byte;</P>
+<P>Time : Longint;</P>
+<P>Size : Longint;</P>
+<P>Name : String[12];</P>
+<P>end;</P><BR WP="BR1"><BR WP="BR2">
+<P>See FExpand, FindNext</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>FindNext</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure FindNext (var S: SearchRec );</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>See FindFirst</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>FindNext is called after an iniitial FindFirst to find subsequent 
+matching</P>
+<P>files. Always check the value of DosError, as described under FindFirst, 
+to</P>
+<P>determine if no more matching files can be found in subsequent calls to</P>
+<P>FindNext.</P>
+<P>See FindFirst</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Flush procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Flush ( var F: Text );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>When you write output to a text file, the data may not be immediately</P>
+<P>written to disk. Instead, the data is temporarily stored in an internal 
+memory</P>
+<P>buffer. When the buffer becomes full, or the file is closed, the buffer 
+is</P>
+<P>physcially transferred to the disk. To force the buffer to be "emptied" 
+to</P>
+<P>disk, call the Flush procedure. By calling Flush, you insure that the data 
+on</P>
+<P>disk are up to date after each Write or Writeln.</P>
+<P>See SetTextBuf</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Frac function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Frac ( X: Real ): Real;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>Writeln( Frac( Pi ):8:7 );</P>
+<P>outputs,</P>
+<P>0.1415927</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Use Frac to obtain the fractional part of a real valued expression. Use</P>
+<P>Int(X) to obtain the integer part of the real value.</P>
+<P>See Int</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>FreeMem procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure FreeMem (var P: Pointer; Size : Word );</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Purpose:</P>
+<P>FreeMem disposes of the memory block pointed to by P, where P was</P>
+<P>initialized by calling GetMem. The Size parameter must be the exact size 
+in</P>
+<P>bytes used to request the allocation with GetMem. See Dispose for a 
+discussion</P>
+<P>of important restrictions concerning the value of P before and after the</P>
+<P>allocation. </P>
+<P>See Dispose, GertMem, New</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>FSearch function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function FSearch( Path: PathStr; DirList: String ) :</P>
+<P>PathStr;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>1 { FSEARCH.PAS }</P>
+<P>2 Program DemoSearch;</P>
+<P>3 { Demonstrates an algorithm to locate a program's required data and</P>
+<P>4 configuration files through the use of the DosVersion function,</P>
+<P>5 ParamStr function, FSplit procedure and FSearch function. This</P>
+<P>algorithm</P>
+<P>6 assumes that the required config. files are kept in the same directory</P>
+<P>7 as the .EXE file.</P>
+<P>8 }</P>
+<P>9 uses</P>
+<P>10 Dos;</P>
+<P>11 </P>
+<P>12 const</P>
+<P>13 { This is the filename that we must locate }</P>
+<P>14 DataFilename = 'SCRATCH.DAT';</P>
+<P>15 </P>
+<P>16 var</P>
+<P>17 Path : PathStr;</P>
+<P>18 Directory : DirStr;</P>
+<P>19 FName : NameStr;</P>
+<P>20 Extension : ExtStr;</P>
+<P>21 F : File;</P>
+<P>22 </P>
+<P>23 begin</P>
+<P>24 </P>
+<P>25 Path := '';</P>
+<P>26 {$I-}</P>
+<P>27 { First, check the current directory }</P>
+<P>28 Assign( F, DataFilename );</P>
+<P>29 Reset( F );</P>
+<P>30 if IoResult &lt;&gt; 0 then</P>
+<P>31 { if not found here, then continue checking ... }</P>
+<P>32 begin</P>
+<P>33 if Lo(DosVersion) &gt;= 3.0 then</P>
+<P>34 { if running &gt;= DOS 3.0, then use ParamStr(0) to get location of</P>
+<P>35 the .EXE file and assume that directory for the data files }</P>
+<P>36 begin</P>
+<P>37 FSplit ( ParamStr(0), Directory, FName, Extension );</P>
+<P>38 Path := Directory;</P>
+<P>39 end</P>
+<P>40 else</P>
+<P>41 { Otherwise, search through the list of directories in the DOS</P>
+<P>42 PATH statement. The .EXE, and hence, its data files, must</P>
+<P>43 have been booted from one of these directories. }</P>
+<P>44 Path := FSearch ( DataFileName, GetEnv('PATH') );</P>
+<P>45 end</P>
+<P>46 else</P>
+<P>47 Close ( F );</P>
+<P>48 </P>
+<P>49 Writeln('Path = ', Path );</P>
+<P>50 end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>FSearch scans through a list of directories, specified by DirList, and</P>
+<P>returns either the full filename, including the subdirectory name, or the 
+null</P>
+<P>string if the file could not be found.</P>
+<P>A typical use of FSearch is when your application first starts to run and</P>
+<P>needs to find its various data files. Most applications store their</P>
+<P>configuration and other file data in the subdirectory where the .EXE 
+executable</P>
+<P>is located. You could, of course, hard code a subdirectory name into your</P>
+<P>program, such as 'C:\MYAPP\'. But this precludes letting users place the</P>
+<P>application in a directory of their choosing. So instead of hard coding 
+the</P>
+<P>subdirectory name, most applications use an algorithm such as the 
+following:</P>
+<P>Step 1: First look in the current directory. If the data files are not 
+found,</P>
+<P>then continue to Step 2.</P>
+<P>Step 2: If running DOS 3.0 or newer, use ParamStr(0) to fetch the full 
+path</P>
+<P>and file name of the .EXE that is currently running. Then use FSplit to</P>
+<P>extract the subdirectory name and use this as the directory where the 
+data</P>
+<P>files should be located.</P>
+<P>Step 3: If running an older version of DOS, then search through the list 
+of</P>
+<P>subdirectories contained in the DOS PATH statement. In order for the 
+program</P>
+<P>to be launched, it must exist in one of the path directories.</P>
+<P>See DosVersion, FSplit, Lo, ParamCount, ParamStr</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>FSplit function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure FSplit ( Path : PathStr; var Dir: DirStr;</P>
+<P>var Name: NameStr; var Ext: ExtStr );</P>
+<P>type</P>
+<P>PathStr = String[79];</P>
+<P>DirStr = String[67];</P>
+<P>NameStr = String[8];</P>
+<P>ExtStr = String[4];</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>See FSearch</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Where Path contains a potentially fully qualified filename, including a</P>
+<P>leading directory name, FSplit, splits apart the filename and returns 3</P>
+<P>separate components:</P>
+<P>Dir - the directory name part of the filename</P>
+<P>Name - the filename minus the extension</P>
+<P>Ext - the filename extension including the leading period character.</P>
+<P>If Path does not contain some of the components, such as a filename 
+extension,</P>
+<P>then the corresponding return variable is set to the null string ''.</P><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>GetCBreak procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure GetCBreak (var Break: Boolean);</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>The DOS operating system periodically checks for a the Ctrl-Break key</P>
+<P>combination being pressed during program execution. As you know, pressing</P>
+<P>Ctrl-Break interrupts the flow of program execution. However, the actual</P>
+<P>processing of the Ctrl-Break key depends on the state of a DOS internal</P>
+<P>variable. GetCBreak returns the current state of this flag: if set to 
+True,</P>
+<P>DOS checks for Ctrl-Break at every DOS system call; if False, DOS checks 
+only</P>
+<P>during input/output operations to the console (CON:), printer (LPT:) or</P>
+<P>communications ports (COMx:). To change the state of Ctrl-Break 
+processing</P>
+<P>flag, call SetCBreak. Also see CheckBreak.</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>GetDate procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure GetDate(var Year, Month, Day, DayofWeek: Word);</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>GetDate fetches the system date (you were expecting that, weren't you?)</P>
+<P>from the current DOS date setting, returning the Year as a value from 1980 
+to</P>
+<P>2099, the Month from 1 to 12, the Day from 1 to 31 and the DayOfWeek value 
+from</P>
+<P>0 (Sunday) to 6 (Saturday).</P>
+<P>See GetTime, SetDate, SetTime</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>GetDir procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure GetDir( D: Byte; var S: String );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Use GetDir to determine the currently active subdirectory on a specific</P>
+<P>disk drive. By setting D to 0 for drive A, 1 for drive B, 2 for drive C, 
+and</P>
+<P>so forth, GetDir returns the current subdirectory in drive S. The default</P>
+<P>return value is '\', even if D specifies an invalid drive, so be certain that 
+D</P>
+<P>is an appropriate value for the system on which the program is running. </P>
+<P>See ChDir</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>GetEnv function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function GetEnv(EnvVar : String) : String;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>CurrentPath := GetEnv('PATH');</P>
+<P>Command := GetEnv('COMSPEC');</P><BR WP="BR1"><BR WP="BR2">
+<P>Also see FSearch for another example.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>DOS maintains a set of environment variables such as PATH, COMSPEC, and 
+so</P>
+<P>on. GetEnv looks up and returns the value of the environment variable</P>
+<P>specified by EnvVar.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>GetFAttr procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure GetFAttr( var F; var Attr: Word );</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>Assign(F, 'SCRATCH.DAT' );</P>
+<P>GetFAttr( F, Attr );</P>
+<P>if (Attr and Archive)&lt;&gt;0 then {archive bit set}</P>
+<P>else</P>
+<P>if (Attr and ReadOnly)&lt;&gt;0 then {read only file}</P>
+<P>...</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Every file on the system has associated with it a set of file attributes. 
+</P>
+<P>These attributes indicate if the file is read-only, hidden, or perhaps a</P>
+<P>directory name. You can obtain a file's attribute settings by calling</P>
+<P>GetFAttr, where F is a file variable to which a filename has been assigned 
+with</P>
+<P>Assign (but should not be open). The attribute value is returned in Attr, as 
+a</P>
+<P>bit pattern. You can check for individual bits using these predefined 
+constant</P>
+<P>identifers:</P>
+<P>ReadOnly = $01;</P>
+<P>Hidden = $02;</P>
+<P>SysFile = $04;</P>
+<P>VolumeID = $08;</P>
+<P>Directory = $10;</P>
+<P>Archive = $20;</P>
+<P>AnyFile = $3F;</P>
+<P>AnyFile is typically used with FindFirst and FindNext and doesn't really 
+have</P>
+<P>any use here. Its possible for a file to have more than one attribute bit 
+set,</P>
+<P>such as ReadOnly and Hidden, so be sure to check multiple attribute settings 
+if</P>
+<P>necessary. Also check DosError in case an error occurs.</P>
+<P>You can set specific file attributes by calling SetFAttr. To get and set</P>
+<P>the file's access date and time, see GetFTime and SetFTime.</P><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>GetFTime procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure GetFTime(var F; var Time: Longint );</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>uses dos;</P>
+<P>var</P>
+<P>F : Text;</P>
+<P>LFileInfo : Longint;</P>
+<P>DFileInfo : DateTime; { declared in Dos unit }</P>
+<P>begin</P>
+<P>Assign( F, 'FSEARCH.PAS' );</P>
+<P>Reset( F );</P>
+<P>GetFTime ( F, LFileInfo );</P>
+<P>UnpackTime ( LFileInfo, DFileInfo );</P>
+<P>with DFileInfo do</P>
+<P>Writeln(Month, '-', Day, '-',</P>
+<P>Year, ' ', Hour:2,':',Min:2,':',Sec:2);</P>
+<P>Readln;</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Every file has associated with it, a date and time stamp indicating when</P>
+<P>the file was last written to. You can fetch this date and time information 
+by</P>
+<P>calling GetFTime, passing a open file identifier. GetFTime returns the 
+date</P>
+<P>and file time packed into a Longint value. Use UnpackTime to translate 
+the</P>
+<P>packed representation into individual date and time components (see the 
+example</P>
+<P>above, as well as PackTime and UnpackTime).</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>GetIntVec procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure GetIntVec(IntNo: Byte; var Vector: Pointer);</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Use GetIntVec to obtain the current address stored in the interrupt 
+number</P>
+<P>IntNo, ranging from 0 up to 255. GetIntVec returns the address as pointer</P>
+<P>value in Vector. Call SetIntVec to set a specific interrupt vector.</P><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>GetMem procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure GetMem(var P: Pointer; Size: Word);</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>type</P>
+<P>TBuffer = Array[0..65521] of char;</P>
+<P>PBuffer = ^TBuffer;</P>
+<P>var</P>
+<P>TextBuffer : PBuffer;</P>
+<P>BufSize : Word;</P>
+<P>I : Integer;</P>
+<P>begin</P>
+<P>{ Depending on some condition, such as low memory, or</P>
+<P>user command, you</P>
+<P>set BufSize at run-time to the exact size of the buffer</P>
+<P>that is needed. }</P><BR WP="BR1"><BR WP="BR2">
+<P>BufSize := 35000;</P>
+<P>GetMem ( TextBuffer, BufSize );</P><BR WP="BR1"><BR WP="BR2">
+<P>{ Perform needed processing on TextBuffer </P>
+<P>Be certain that you index the buffer only in the range</P>
+<P>from 0</P>
+<P>to BufSize. Even though TBuffer is defined to hold up to</P>
+<P>65,521 bytes,</P>
+<P>we have only allocated enough memory for the first 35,000</P>
+<P>bytes. }</P>
+<P>For I := 0 to BufSize do</P>
+<P>TextBuffer^[I] := ' ';</P>
+<P></P>
+<P>{ Return the buffer memory back to the free space on the</P>
+<P>heap }</P>
+<P>FreeMem ( TextBuffer, BufSize );</P><BR WP="BR1"><BR WP="BR2">
+<P>Readln;</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>GetMem allocates a memory block from the heap sufficient to hold Size</P>
+<P>bytes (up to a maximum of 65,521 bytes), and returns a pointer to the 
+allocated</P>
+<P>memory in variable parameter P. While most dynamic variable allocations 
+are</P>
+<P>made with the New procedure, you can use GetMem for allocating buffers 
+whose</P>
+<P>size is not known until program execution. The example above shows how to</P>
+<P>allocate a dynamically sized array of char. You can use this code fragment 
+to</P>
+<P>allocate other types of data structures. To allocate a single record, set</P>
+<P>BufSize := SizeOf(recordstructuretype). To create a dynamically allocated</P>
+<P>array of records, write:</P>
+<P>BufSize := SizeOf(recordstructuretype) * MaximumElements;</P>
+<P>where MaximumElements is the largest array index that you will need. Its</P>
+<P>important when multiplying these values to insure that you do not exceed 
+65,521</P>
+<P>bytes in size. To create an array of other data types, such as Integer,</P>
+<P>Longint or Real, substitute the appropriate data type in the SizeOf 
+expression</P>
+<P>shown above.</P>
+<P>See Dispose, FreeMem, Mark, New, Release</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>GetTime procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure GetTime(var Hour, Minute, Second, Sec100: Word);</P><BR 
+WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>The DOS operating system maintains a system clock to keep track of the</P>
+<P>time in resolution down to 100th of a second. By calling GetTime you can</P>
+<P>obtain the current values for Hour, Minute, Second and hundredth's of a 
+second.</P>
+<P>See GetDate, PackTime, SetDate, SetTime, UnpackTime</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>GetVerify procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure GetVerify( var Verify: Boolean );</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>DOS can optionally verify that every disk write operation is correctly</P>
+<P>performed by having the disk controller read the disk record back into 
+memory</P>
+<P>and comparing the result to what it wrote. You can check the current 
+setting</P>
+<P>of the DOS verify flag by calling GetVerify, which returns Verify set to 
+True</P>
+<P>when disk writes are being verified, and False if disk writes are not 
+verified.</P>
+<P>Disk write verification is, of course, quite time consuming and can be 
+turned</P>
+<P>on or off by calling SetVerify. Because of the slowness that this can 
+cause</P>
+<P>(all disk writes take twice as long), most DOS users leave verification 
+turned</P>
+<P>off.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2">
+<P>GotoXY procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Gotoxy (X, Y: Byte);</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Gotoxy moves the text cursor to a new screen location specified by the</P>
+<P>coordinate pair (X,Y) (relative to the current settings of the Window</P>
+<P>procedure). The screen coordinates range from (1,1) in the upper left 
+corner</P>
+<P>to (80,25) at the lower right corner when using the standard 80x25 text 
+screen</P>
+<P>size. The maximum values vary depending on the type and mode settings of 
+the</P>
+<P>video monitor. X increases from left to right and Y increases from top to</P>
+<P>bottom.</P>
+<P>You can obtain the current cursor position by calling WhereX and WhereY.</P>
+<P>See Window</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Halt procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Halt [ (ExitCode: Word); ]</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Halt stops your program from executing and returns to DOS, optionally</P>
+<P>setting the program's exit code to ExitCode. Be sure to see ExitCode and</P>
+<P>ExitProc for additional details regarding program exit handling.</P>
+<P>See Exit, ExitCode, RunError</P><BR WP="BR1"><BR WP="BR2">
+<P></P><BR WP="BR1"><BR WP="BR2">
+<P>HeapError variable</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>HeapError : is a pointer to a function having this structure</P>
+<P>function HeapFunc(Size: Word): Integer; far;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>HeapError may be set to point to a special far function to assist with</P>
+<P>handling of out of memory errors that may arise when attempting to 
+allocate</P>
+<P>dynamic variables with New or GetMem. See "Pointers and Memory Management" 
+in</P>
+<P>Chapter 3 for details.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Hi function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Hi ( X ) : Byte;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Where X is either an Integer or Word value, Hi(X) returns the high byte 
+of</P>
+<P>the 2 byte data value. Lo(X) returns the low byte value.</P>
+<P>See Lo, Swap</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>HighVideo procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure HighVideo;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Text is written to the screen in 1 of 8 possible colors (see TextColor). </P>
+<P>The values 0 to 7 are the basic color set, with the next 8 values, 8 to 
+15,</P>
+<P>defining high-intensity or bright renditions of the basic color set. When</P>
+<P>writing text in one of the basic colors (0 to 7), calling HighVideo 
+effectively</P>
+<P>adds 8 to the current text color. This may be turned off by calling 
+LowVideo</P>
+<P>or NormVideo.</P>
+<P>See LowVideo, NormVideo, TextBackground, TextColor</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Inc procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Inc (var X [; N: Longint ] );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Inc provides an optimized method of incrementing the value of a variable. 
+</P>
+<P>When used in the form Inc(X), the value of X is increased by 1. This is</P>
+<P>equivalent to writing,</P>
+<P>X := X + 1;</P>
+<P>When used in the form Inc(X, N), the value of X is increased by N. This 
+is</P>
+<P>equivalent to writing,</P>
+<P>X := X+ N;</P>
+<P>See Dec</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Insert procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Insert( Source: String; var S: String; </P>
+<P>Index: Integer);</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>AString := 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';</P>
+<P>Insert( '0123456789', AString, 14 );</P>
+<P>Writeln( AString );</P><BR WP="BR1"><BR WP="BR2">
+<P>produces this output,</P><BR WP="BR1"><BR WP="BR2">
+<P>ABCDEFGHIJKLM0123456789NOPQRSTUVWXYZ</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Use Insert to place one string inside of another. Insert copies Source</P>
+<P>into S starting at Index, pushing the existing characters in S to the 
+right.</P>
+<P>See Concat, Copy, Delete, Length, Pos</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>InsLine procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure InsLine;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>Gotoxy (1, 10);</P>
+<P>InsLine; { Insert a blank line at line 10 }</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Use InsLine to scroll text on the screen downwards (also see DelLine to</P>
+<P>scroll text upwards), inserting a new blank line in the current 
+TextBackground</P>
+<P>color. Use Gotoxy to move the cursor to the screen or window location 
+where</P>
+<P>the insert line operation should begin. You can use InsLine within a 
+screen</P>
+<P>window (see Window) to scroll only a portion of the screen.</P>
+<P>See DelLine, Gotoxy, TextBackground, Window</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Int function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Int( X: Real ) : Real;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Removes the fractional part of X and returns the integer portion of X as</P>
+<P>the result. For example, Int(Pi) returns 3, Int(-7.,89) returns -7.</P>
+<P>See Frac, Round, Trunc</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Intr procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Intr(IntNo: Byte; var Regs: Registers);</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>uses</P>
+<P>Dos;</P>
+<P>const</P>
+<P>StartLine = 4; { Top scan line }</P>
+<P>EndLine = 8; { Bottom scan line }</P>
+<P>var</P>
+<P>Reg : Registers;</P>
+<P>begin</P>
+<P>{ Demonstration of changing the shape of the on-screen</P>
+<P>text cursor }</P>
+<P>Reg.AH := $01;</P>
+<P>Reg.CH := StartLine;</P>
+<P>Reg.CL := EndLine;</P>
+<P>Intr ( $10, Reg );</P>
+<P>Readln;</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Use Intr to access the software interrupt specified by IntNo. Regs is of</P>
+<P>type Register, which is a case-variant record structure for representing 
+the</P>
+<P>CPU registers, defined as:</P>
+<P>type</P>
+<P>Registers = record</P>
+<P>case Integer of</P>
+<P>0: (AX, BX, CX, DX, BP, SI, DI, DS, ES, Flags: Word);</P>
+<P>1: (Al, AH, BL, BH, CL, CH, DL, DH: Byte);</P>
+<P>end;</P>
+<P>Note that the SS and SP registers are not available in this structure and</P>
+<P>cannot be used in conjunction with BIOS and DOS calls.</P>
+<P>The example code, above, uses Int 10H Subfunction 01H Set Cursor Type to</P>
+<P>change the shape of the text mode cursor. The cursor shape is defined as 
+a</P>
+<P>block between the StartLine and EndLine values, where the top line is line 
+0</P>
+<P>and the bottom or EndLine is determined by the display adaptor and screen</P>
+<P>resolution in use. For CGA equivalent displays, characters are 8 pixels 
+high,</P>
+<P>hence, these values range from 0 to 7.</P>
+<P>For complete details on DOS and BIOS software interrupt function calls,</P>
+<P>see DOS Programmer's Reference, by Terry Dettmann and Jim Kyle (Que 
+Books,</P>
+<P>1989). </P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>IOResult function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function IOResult : Word;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>repeat</P>
+<P>Writeln( 'Enter name of file to open:' );</P>
+<P>Readln( FileName );</P>
+<P>{$I-}</P>
+<P>Assign( F, FileName );</P>
+<P>Reset( F );</P>
+<P>{$I+} { I usually leave $I- set for the duration of my</P>
+<P>programs }</P>
+<P>ErrorCode := IOResult;</P>
+<P>if ErrorCode &lt;&gt; 0 then</P>
+<P>begin</P>
+<P>Writeln('Unable to open file ', FileName );</P>
+<P>end;</P>
+<P>until ErrorCode = 0;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>IOResult returns the error code of the last input/output operation. To</P>
+<P>use IOResult, you must disable automatic IOResult checking by writing 
+{$I-}</P>
+<P>before performing an I/O operation. Then, after each I/O operation you 
+can</P>
+<P>manually check the result code returned by IOResult, and take appropriate</P>
+<P>action.</P>
+<P>Normally, you should copy the value of IOResult to a temporary variable,</P>
+<P>like this:</P><BR WP="BR1"><BR WP="BR2">
+<P>ErrorCode := IOResult;</P>
+<P>If ErrorCode &lt;&gt; 0 then {take action}</P><BR WP="BR1"><BR WP="BR2">
+<P>While you can check IOResult directly, IOResult resets the last error 
+condition</P>
+<P>to zero when called. This means if you check the value of IOResult in an</P>
+<P>if-then statement, and then in the process of handling the error you 
+again</P>
+<P>reference IOResult, the value returned will now be 0! Trying to track this 
+type</P>
+<P>of problem is a bit maddening until you realize that IOResult returns the</P>
+<P>current error code and then resets itself to zero.</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Keep procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Keep(ExitCode: Word);</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Terminates a program but leaves the program resident in memory. Such a</P>
+<P>program is a TSR program, which must latch itself onto a interrupt to be</P>
+<P>"revivied", and which must be aware of the other considerations that apply 
+to</P>
+<P>a TSR program (such as avoiding DOS reentrant code and so on). The 
+ExitCode</P>
+<P>parameter value is passed to the Halt standard procedure for indicating 
+an</P>
+<P>error condition. DO NOT use this procedure unless you know what you are 
+doing!</P>
+<P>You can learn how to write a TSR program entirely in Turbo Pascal by 
+reading</P>
+<P>Chapter 9, "Special Programming Techniques: 8087 Usage, Interrupts and 
+TSRs",</P>
+<P>in the Borland Pascal Developer's Guide, from Que Books.</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>KeyPressed function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function KeyPressed : Boolean;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>repeat</P>
+<P>{ Do any operations repeatedly here }</P>
+<P>until KeyPressed;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>KeyPressed returns True if a keyboard character has been typed, False</P>
+<P>otherwise. KeyPressed is useful for executing a section of code until a</P>
+<P>character is typed at the keyboard. KeyPressed only tells you that 1 or 
+more</P>
+<P>characters have been typed; you need to call Read, Readln or ReadKey to 
+read</P>
+<P>the input.</P>
+<P>See ReadKey</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Length function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Length ( S : String );</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>Writeln( Length ('ABCDEFGHIJKLMNOPQRSTUVWXYZ') );</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>outputs,</P><BR WP="BR1"><BR WP="BR2">
+<P>26</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Length(S) returns the current value of the length byte of S, which is the</P>
+<P>actual length of the string that is stored in S. SizeOf returns the total</P>
+<P>storage occupied by S. If, for example, S is declared as,</P>
+<P>var</P>
+<P>S : String[80];</P>
+<P>then SizeOf(S) returns 81 (80 bytes plus the length byte), and Length(S)</P>
+<P>returns a value from 0 to 80, depending upon the current contents of the</P>
+<P>string.</P>
+<P>See SizeOf</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Ln function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Ln( X : Real );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Returns the natural logarithm of X. To compute the base 10 logarithm of</P>
+<P>an expression, define a new function like this:</P>
+<P>function Log10 ( X : Real ): Real;</P>
+<P>begin</P>
+<P>Log10 := Ln(X) / Ln(10);</P>
+<P>end;</P>
+<P>See Exp</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Lo function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Lo(X): Byte;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Returns the low byte of X, where X is either an Integer or Word value. </P>
+<P>Thefunction Hi(X) returns the corresponding high byte.</P>
+<P>See Hi, Swap</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>LowVideo procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure LowVideo;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Performs the inverse of HighVideo by subtracting 8 from the text</P>
+<P>attribute's foreground color, translating color values in the range 8 to 
+15</P>
+<P>down to 0 to 7. See HighVideo for more details.</P>
+<P>See HighVideo, NormVideo, TextColor</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Lst file</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>Lst : Text;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Printer</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>The Printer unit provides a special Lst file identifier for easy printer</P>
+<P>output. All you need do to use Lst, is use the Printer unit in your program 
+or</P>
+<P>unit's uses statement. Thereafter, to send output to the printer, specify 
+Lst</P>
+<P>as the file identifier in your Write or Writeln statements. You do not need 
+to</P>
+<P>open or close the printer as this is handled automatically by the Printer</P>
+<P>unit's internal initialization section.</P>
+<P>See Write, Writeln</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Mark procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Mark (var P: Pointer);</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Copies the current value of the heap pointer to P. Mark, together with</P>
+<P>Release, enable you to dynamically allocate a group of objects, and then</P>
+<P>dispose of them in a single call to Release. See "The Use of Mark and 
+Release</P>
+<P>Procedures" in Chapter 3, for full details.</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>MaxAvail function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function MaxAvail : Longint;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>During program execution, the heap memory area may become fragmented with</P>
+<P>blocks allocated here and there. By calling MaxAvail you can determine 
+the</P>
+<P>size, in bytes, of the largest free block available for allocation. A 
+related</P>
+<P>function, MemAvail, returns the total number of free bytes available in 
+the</P>
+<P>heap.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2">
+<P>MemAvail function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function MemAvail : Longint;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Returns the total number of free bytes in the heap. Note that you may not</P>
+<P>be able to allocate a dynamic variable as large as MemAvail because the 
+heap</P>
+<P>may be fragmented. You can determine the largest possible free block by</P>
+<P>calling MaxAvail.</P>
+<P>A common use for MemAvail is to periodically check your memory allocation</P>
+<P>and deallocation. If you find that MemAvail is constantly increasing 
+durng</P>
+<P>program execution, you may be dynamically allocating a variable and never</P>
+<P>disposing of the memory block. Eventually, your program will run out of 
+memory</P>
+<P>and be halted.</P>
+<P>You may also wish to place MemAvail checks at key points within your</P>
+<P>program. For example, before calling a procedure that makes a large number 
+of</P>
+<P>dynamic memory allocations, save the contents of MemAvail in another 
+variable. </P>
+<P>Then, upon return from the procedure, compare MemAvail to the saved value. 
+If</P>
+<P>they are not the same, this is a sign that somewhere within the called</P>
+<P>procedure, or perhaps a procedure called by it, memory is not being 
+properly</P>
+<P>disposed.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Mkdir procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure MkDir(S: String);</P><BR WP="BR1"><BR WP="BR2">
+<P>Example: </P>
+<P>var</P>
+<P>DirName : String;</P>
+<P>ErrorCode : Integer;</P>
+<P>begin</P>
+<P>repeat</P>
+<P>Write('Enter name of directory to make: ');</P>
+<P>Readln( DirName );</P>
+<P>if DirName &lt;&gt; '' then</P>
+<P>begin</P>
+<P>{$I-}</P>
+<P>MkDir ( DirName );</P>
+<P>ErrorCode := IOResult;</P>
+<P>if ErrorCode &lt;&gt; 0 then</P>
+<P>Writeln('Error creating directory ', DirName )</P>
+<P>else</P>
+<P>Writeln('Directory ', DirName, </P>
+<P>' has been created.');</P>
+<P>end;</P>
+<P>until DirName = '';</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>To create or make a subdirectory, call MkDir, setting the parameter S to</P>
+<P>the name of the directory to create. S may specify a full path, such as</P>
+<P>'C:\TP\UTILS\GRAPHICS' or a simple directory name such as 'GRAPHICS' 
+which</P>
+<P>creates subdirectory 'GRAPHICS' in the current subdirectory. </P>
+<P>The directory name specified may not be the name of an existing file. You</P>
+<P>can check for errors by setting {$I-} and examining the value returned by</P>
+<P>IOResult.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Move procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Move (var Source, Dest; Count : Word);</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Example:</P>
+<P>1 { DEMOMOVE.PAS }</P>
+<P>2 program MoveDemo;</P>
+<P>3 { Demonstrates how Move procedure can be used to move large numbers</P>
+<P>4 of bytes around inside an array. This demo stores lines of text</P>
+<P>5 into a large TextArray. New lines are added by calling AddLine, which</P>
+<P>6 calls MakeAHole to slide the existing data in the TextArray to make</P>
+<P>7 room for new text. AddLine then uses Move to copy the string data</P>
+<P>8 into TextArray. Data is fetched using the procedure GetLine.</P>
+<P>9 The variable CurSize keeps track of how many bytes of TextArray are</P>
+<P>10 currently in use. CurLocation keeps track of the current position; if 
+we</P>
+<P>11 were writing a text editor based on this approach, CurLocation would</P>
+<P>index</P>
+<P>12 into TextArray where the editor's cursor appears on the screen. In 
+other</P>
+<P>13 word, the next new line that we type would be inserted at CurLocation.</P>
+<P>14 }</P>
+<P>15 </P>
+<P>16 const</P>
+<P>17 MaxSize = 32000;</P>
+<P>18 MARKER = 13;</P>
+<P>19 </P>
+<P>20 var</P>
+<P>21 TextArray : Array[0..MaxSize] of Char;</P>
+<P>22 CurSize : Word;</P>
+<P>23 CurLocation : Word;</P>
+<P>24 </P>
+<P>25 </P>
+<P>26 procedure MakeAHole ( Address : Word; Size : Word );</P>
+<P>27 { Slides data in the TextArray sideways, leaving a "hole" to fill</P>
+<P>28 with new data }</P>
+<P>29 begin</P>
+<P>30 Move( TextArray[Address], TextArray[Address+Size], CurSize - Address +</P>
+<P>1 );</P>
+<P>31 end;</P>
+<P>32 </P>
+<P>33 </P>
+<P>34 </P>
+<P>35 procedure AddLine ( var Address : Word; S : String );</P>
+<P>36 { Adds the contents of S to the TextArray, starting at location Address 
+}</P>
+<P>37 var</P>
+<P>38 NumBytes : Integer;</P>
+<P>39 begin</P>
+<P>40 NumBytes := Length(S) + 1;</P>
+<P>41 S[0] := Chr(MARKER);</P>
+<P>42 MakeAHole ( Address, NumBytes );</P>
+<P>43 Move( S[0], TextArray[Address], NumBytes );</P>
+<P>44 CurSize := CurSize + NumBytes;</P>
+<P>45 Address := Address + NumBytes;</P>
+<P>46 end;</P>
+<P>47 </P>
+<P>48 </P>
+<P>49 </P>
+<P>50 procedure GetLine ( Address : Word; var S : String );</P>
+<P>51 { On entry, Address points to a MARKER character in the text array. </P>
+<P>GetLine</P>
+<P>52 copies the text between this marker and the next marker (or end of 
+array)</P>
+<P>53 to S. }</P>
+<P>54 var</P>
+<P>55 TempAddr : Word;</P>
+<P>56 begin</P>
+<P>57 TempAddr := Address + 1;</P>
+<P>58 while (TempAddr &lt;= CurSize) and</P>
+<P>59 (TextArray[TempAddr] &lt;&gt; Chr(MARKER)) do</P>
+<P>60 Inc(TempAddr);</P>
+<P>61 Move ( TextArray[Address+1], S[1], TempAddr - Address );</P>
+<P>62 S[0] := chr( TempAddr - Address );</P>
+<P>63 end;</P>
+<P>64 </P>
+<P>65 </P>
+<P>66 procedure MoveAhead (var Address : Word );</P>
+<P>67 { Where address points to some location in TextArray, MoveAhead 
+positions</P>
+<P>68 Address to the index location of the next Marker character. }</P>
+<P>69 begin</P>
+<P>70 if TextArray[Address] = chr(MARKER) then</P>
+<P>71 Inc(Address);</P>
+<P>72 while (Address &lt;= CurSize) and</P>
+<P>73 (TextArray[Address] &lt;&gt; Chr(MARKER)) do</P>
+<P>74 Inc(Address);</P>
+<P>75 end;</P>
+<P>76 </P>
+<P>77 </P>
+<P>78 var</P>
+<P>79 I : Integer;</P>
+<P>80 ALine : String;</P>
+<P>81 </P>
+<P>82 begin</P>
+<P>83 CurSize := 0;</P>
+<P>84 CurLocation := 0;</P>
+<P>85 </P>
+<P>86 { Add some sample data into TextArray }</P>
+<P>87 AddLine ( CurLocation, 'Line 1 I''m the first line of data');</P>
+<P>88 AddLine ( CurLocation, 'Line 2 and I''m the second!');</P>
+<P>89 AddLine ( CurLocation, 'Line 3 The quick brown fox jumped over the');</P>
+<P>90 AddLine ( CurLocation, 'Line 4 lazy brown dog and fell and hurt</P>
+<P>herself.');</P>
+<P>91 </P>
+<P>92 CurLocation := 0;</P>
+<P>93 MoveAhead ( CurLocation );</P>
+<P>94 AddLine ( CurLocation, 'One more line!!!!!');</P>
+<P>95 </P>
+<P>96 CurLocation := 0;</P>
+<P>97 for I := 1 to 5 do</P>
+<P>98 begin</P>
+<P>99 GetLine ( CurLocation, ALine );</P>
+<P>100 Writeln( ALine );</P>
+<P>101 MoveAhead ( CurLocation );</P>
+<P>102 end;</P>
+<P>103 </P>
+<P>104 readln;</P>
+<P>105 end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Move copies a block of bytes of Count size from Source to Dest. Move uses</P>
+<P>optimized assembly language to provide extremely fast copies of 
+potentially</P>
+<P>large amounts of data and is particular useful for sliding values around 
+inside</P>
+<P>large text arrays, such as might be used in a text editor (see example, 
+above).</P><BR WP="BR1"><BR WP="BR2">
+<P>Important! Range Checking!</P>
+<P>Move does not perform range checking. You may, for instance, move 30,000</P>
+<P>bytes into a 255 character string. And Move will go ahead and do just 
+that,</P>
+<P>writing over portions of your run-time stack, other variables, and 
+generally</P>
+<P>anything else that gets in the way. So be careful!</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>MsDos procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure MsDos (var Regs: Registers );</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>uses</P>
+<P>Dos;</P>
+<P>var</P>
+<P>Reg : Registers;</P>
+<P>begin</P>
+<P>{ Call the DOS Int 21H Function 0EH Select Disk function</P>
+<P>to determine</P>
+<P>the maximum number of drives permitted for the system;</P>
+<P>this</P>
+<P>is equivalent to the number of logical drives on the</P>
+<P>system, or</P>
+<P>the LASTDRIVE value in the CONFIG.SYS file, or a default</P>
+<P>of 5</P>
+<P>if LASTDRIVE (approximately) }</P>
+<P>Reg.AH := $0E;</P>
+<P>Reg.DL := $00;</P>
+<P>MsDos( Reg );</P>
+<P>Writeln( 'Total Drives=', Reg.AL );</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>MsDos access the DOS-functions available through software interrupt 21H. </P>
+<P>While most of the especially useful DOS-level functions are available 
+through</P>
+<P>Turbo Pascal library routines such as GetFTime, SetDate, and so on, you 
+can</P>
+<P>access some of the other functions using the MsDos procedure call mechanism. 
+</P>
+<P>The variable parameter Regs defines a case variant record structure for</P>
+<P>representing the CPU registers, where Register is defined as:</P><BR 
+WP="BR1"><BR WP="BR2">
+<P>type</P>
+<P>Registers = record</P>
+<P>case Integer of</P>
+<P>0: (AX, BX, CX, DX, BP, SI, DI, DS, ES, Flags: Word);</P>
+<P>1: (Al, AH, BL, BH, CL, CH, DL, DH: Byte);</P>
+<P>end;</P><BR WP="BR1"><BR WP="BR2">
+<P>Note that the SS and SP registers are not available in this structure and</P>
+<P>cannot be used in conjunction with MsDos calls. For complete details on 
+DOS</P>
+<P>function calls, see DOS Programmer's Reference, by Terry Dettmann and Jim 
+Kyle</P>
+<P>(Que Books, 1989).</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>New procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure New( var P: Pointer [, Init: constructor ] );</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Example:</P>
+<P>See "The Pointer type" in Chapter 3 of the Turbo Pascal Reference.</P><BR 
+WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Dynamic variable allocations and dynamic object creations are performed</P>
+<P>with New. New allocates a memory block, from the heap memory area, and sets 
+P</P>
+<P>to point to the memory block. If P points to an object, you can optionally 
+add</P>
+<P>the name of the object's constructor method and it will be called 
+immediately</P>
+<P>after the memory is allocated. This provides a short hand method of</P>
+<P>simultaneously allocating and initializing the object's fields and 
+virtual</P>
+<P>method table.</P>
+<P>The New procedure may fail if there is insufficient memory in the heap to</P>
+<P>allocate the new block. Normally, this results in a run-time error that</P>
+<P>terminates the program. However, by setting the HeapError variable to point 
+to</P>
+<P>your own heap error handler, your program can take steps to gracefully 
+recover</P>
+<P>from out of memory conditions. See HeapError in this section, and chapter 
+3,</P>
+<P>"Pointers and Memory Management" for tips on trapping the out of memory 
+error</P>
+<P>condition.</P>
+<P>You must make certain that you dispose of allocated memory blocks once</P>
+<P>they are no longer needed (see Dispose). If you fail to dispose of a 
+memory</P>
+<P>block it continues to occupy memory space and can contribute to your 
+program's</P>
+<P>running of out memory.</P>
+<P>Since a pointer variable "points" to a memory block, you reference the</P>
+<P>thing that P points to by typing P^. This is described in chapter 3. </P>
+<P>See Dispose, FreeMem, GetMem</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>NormVideo procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure NormVideo;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Resets the current text attribute to the original text attribute that was</P>
+<P>in use when the program was launched. Specifically, when the program is</P>
+<P>started, the value of the text attribute where the cursor is located is 
+saved. </P>
+<P>You can use NormVideo to restore this original text attribute at program 
+exit. </P>
+<P>By doing so, the screen image will be reset to whatever screen attributes 
+were</P>
+<P>in effect when the program was started (or specifically, the screen 
+attribute</P>
+<P>at the cursor's location when the program was started).</P>
+<P>See HighVideo, LowVideo, TextBackground, Textcolor</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>NoSound procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure NoSound;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>NoSound is used in conjunction with the Sound procedure. Sound turns on</P>
+<P>the speaker and emits a user selected tone. To turn off the speaker, call</P>
+<P>NoSound.</P>
+<P>See Sound</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Odd function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Odd( X: Longint ): Boolean;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Odd returns True if its parameter is an odd number, or False if its</P>
+<P>parameter is an even number. Sort of an odd function.</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Ofs function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Ofs( X ): Word;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Where X is any type of variable, Ofs(X) produces the offset portion of 
+the</P>
+<P>variable's address. All 80x86 addresses consist of a segment:offset word 
+pair.</P>
+<P>The two values are added together to produce the actual physical memory</P>
+<P>address. To find the corresponding segment value, call Seg(X).</P>
+<P>See Addr, Seg</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Ord function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Ord( X ): Longint;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>var</P>
+<P>I : Integer;</P>
+<P>S : String;</P>
+<P>...</P>
+<P>{ Convert all upper case letters to lower case letters }</P>
+<P>for I := 1 to Length(S) do</P>
+<P>if (S[I]&gt;='A') and (S[I]&lt;='Z') then</P>
+<P>S[I] := Chr( Ord(S[I]) + 32 );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Ord translates its parameter X to a Longint value reprsenting X's</P>
+<P>ordinality. For example, Ord('A') returns a value of 65, because A is the</P>
+<P>sixty-fifth value in the set of characters (this also coincides with 'A's 
+ASCII</P>
+<P>code value). The sample code shown above uses Ord to convert a character 
+value</P>
+<P>to its ASCII code. Since the capital letter 'A' has an ASCII value of 65, 
+and</P>
+<P>the lower case letter 'A' has an ASCII code of 97, adding 32 to the 
+ordinal</P>
+<P>value of a character is equivlant to converting the character to lower case. 
+</P>
+<P>Chr converts the integer result back to a character value.</P>
+<P>If you have an ordinal type declared as,</P>
+<P>type</P>
+<P>DaysOfTheWeek= (Sun,Mon,Tue,Wed,Thu,Fri,Sat);</P>
+<P>var</P>
+<P>Day : DaysOfTheWeek;</P><BR WP="BR1"><BR WP="BR2">
+<P>And then the code, </P><BR WP="BR1"><BR WP="BR2">
+<P>Day := Tue;</P>
+<P>Writeln(Ord(Day));</P><BR WP="BR1"><BR WP="BR2">
+<P>The output will be:</P>
+<P>2</P>
+<P>since the ordinal values of DaysOfTheWeek are:</P>
+<P>Sun 0</P>
+<P>Mon 1</P>
+<P>Tue 2</P>
+<P>Wed 3</P>
+<P>Thu 4</P>
+<P>Fri 5</P>
+<P>Sat 6</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2">
+<P>PackTime procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure PackTime(var DT: DateTime; var Time: Longint);</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>uses dos;</P>
+<P>var</P>
+<P>F : Text;</P>
+<P>LFileInfo : Longint;</P>
+<P>DFileInfo : DateTime; { declared in Dos unit }</P>
+<P>begin</P>
+<P>Assign( F, 'FSEARCH.PAS' );</P>
+<P>Reset( F );</P>
+<P>GetFTime ( F, LFileInfo );</P>
+<P>UnpackTime ( LFileInfo, DFileInfo );</P>
+<P>with DFileInfo do</P>
+<P>Writeln(Month, '-', Day, '-', Year,</P>
+<P>' ',Hour:2,':',Min:2,':',Sec:2);</P><BR WP="BR1"><BR WP="BR2">
+<P>{ Change file's date to 1992 }</P>
+<P>DFileInfo.Year := 1992;</P>
+<P>PackTime ( DFileInfo, LFileInfo );</P>
+<P>SetFTime ( F, LFileInfo );</P>
+<P>Readln;</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>PackTime converts a date and time record DT, containing individual values</P>
+<P>for Year, Month, Day, Hour, Min and Sec, into a 4 byte Longint 
+reprsentation</P>
+<P>and returns the result in parameter variable Time.</P>
+<P>PackTime is used with UnpackTime, for encoding and decoding the date and</P>
+<P>time data returned or set by GetFTime and SetFTime, respectively. You can 
+write</P>
+<P>a program, such as the sample program above, to pre- or post-date files, 
+as</P>
+<P>needed. When that important project needs to be done on a Friday and you 
+find</P>
+<P>yourself feverishly coding through late weekend hours, you still might be 
+able</P>
+<P>to convince your boss that you really did finish the job on Friday!</P>
+<P>See GetFTime, SetFTime, UnpackTime</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>ParamCount function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function ParamCount : Word;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>When you start up a program from the DOS command line, you can add a</P>
+<P>number of comand line parameters that are accessible from your program 
+(see</P>
+<P>ParamStr). ParamCount returns the total number of command line parameters</P>
+<P>entered on the command line.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>ParamStr function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function ParamStr( Index: Word ) : String;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>When you start up a program from the DOS command line, you can add a</P>
+<P>number of comand line parameters that are accessible from your program. 
+These</P>
+<P>command line parameters might be filenames, starting directories or any 
+other</P>
+<P>values that your application requires. For example, the command line 
+compiler</P>
+<P>TPC has a large variety of command line options that may be specified 
+when</P>
+<P>starting the compiler. Inside your application, you can fetch each of the</P>
+<P>command line parameters by calling ParamStr and setting Index to choose a</P>
+<P>particular parameter.</P>
+<P>Normally, you should restrict the value of Index to the range of 1 to</P>
+<P>ParamCount, where ParamCount returns the total number of command line</P>
+<P>parameters. Invalid values for Index result in a null string being returned 
+by</P>
+<P>ParamStr. On DOS 3.0 and later, ParamStr(0) provides the name of the 
+program</P>
+<P>that is currently executing. ParamStr(0) is especially useful when an</P>
+<P>application must find the subdirectory from where it was launched.</P>
+<P>See ParamCount</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Pi function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: function Pi : Real;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Pi returns the constant value 3.1415926535897932385, where the exact</P>
+<P>precision depends on the math emulation or math processor mode that is in 
+use.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2">
+<P>Port/PortW pseudo arrays</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>When used for output:</P>
+<P>Port[ Index ] := &lt;byte valued expression&gt;</P>
+<P>PortW[ Index ] := &lt;word valued expression&gt;</P>
+<P></P>
+<P>When used for input:</P>
+<P>&lt;Result&gt; := Port[ Index ];</P>
+<P>&lt;Result&gt; := PortW[ Index ];</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>{ Assign the value of Databyte to I/O address $3F8 }</P>
+<P>Port[$3F8] := Databyte;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Port and PortW act like arrays whose index corresponds to a hardware I/O</P>
+<P>port. The index value ranges from 0 up to 65,535. By using Port for byte</P>
+<P>values and PortW for word values, these pseudo-array variables are used 
+to</P>
+<P>write high level language implementations of hardware device drivers, such 
+as</P>
+<P>serial port access routines. PortW is used to access a word value.</P>
+<P>Port and PortW are not really arrays but Pascal level access mechanisms</P>
+<P>for the low-level data ports. As such, Port and PortW should only be used 
+to</P>
+<P>the left of an assignment statement or as a component in an expression. 
+They</P>
+<P>cannot be used as variable parameters to any procedure or function.</P><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Pos function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Pos ( Substr, S: String ): Byte;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>{ This examples uses the Pos() function to implement</P>
+<P>a string replacement routine }</P><BR WP="BR1"><BR WP="BR2">
+<P>function Replace ( SearchFor, ReplaceWith, </P>
+<P>InThis : String ): String;</P>
+<P>{ Finds every occurrence of SearchFor within InThis, and</P>
+<P>changes each occurrence to the value of ReplaceWith.</P>
+<P>This function solves the problem recursively. Once it finds</P>
+<P>an occurrence of SearchFor, it makes the first replacement</P>
+<P>and then calls itself on the remainder of the string.}</P>
+<P>var</P>
+<P>Index : Integer;</P>
+<P>begin</P>
+<P>Index := Pos (SearchFor, InThis);</P>
+<P>if Index &gt; 0 then</P>
+<P>Replace := Copy ( InThis, 1, </P>
+<P>Pos(Searchfor, InThis) - 1) +</P>
+<P>ReplaceWith +</P>
+<P>Replace( SearchFor, ReplaceWith,</P>
+<P>Copy( InThis, Index + Length(Searchfor),255 ));</P>
+<P>else</P>
+<P>Replace := InThis;</P>
+<P>end;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example Usage of Replace:</P><BR WP="BR1"><BR WP="BR2">
+<P>Writeln(</P>
+<P>Replace('e', '*',</P>
+<P>'The quick brown fox jumped over the lazy dog.');</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>outputs,</P><BR WP="BR1"><BR WP="BR2">
+<P>Th* quick brown fox jump*d ov*r the lazy dog.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>When you need to search for a substring within another string, use the 
+Pos</P>
+<P>function. Pos scans through string S searching for an occurrence of Substr. 
+</P>
+<P>Iffound, Pos returns the character index in S where Substr begins. If not</P>
+<P>found, Pos returns 0.</P>
+<P>The example function Replace, above, is a handy routine to perform a 
+"find</P>
+<P>and replace" operation on strings. Replace uses Pos to find the first</P>
+<P>occurence of the Searchfor string, replaces it with ReplaceWith, and then 
+calls</P>
+<P>Replace recursively to change the remainder of the string.</P><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Pred function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Pred( X ) : &lt;same type as X&gt;;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>type</P>
+<P>DaysOfTheWeek= (Sun,Mon,Tue,Wed,Thu,Fri,Sat);</P>
+<P>var</P>
+<P>Day : DaysOfTheWeek;</P>
+<P>...</P>
+<P>Day := Tue;</P>
+<P>Day := Pred( Day ); { Sets Day to Mon }</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Pred(X) sets X to the predecessor value in the ordinal valued set from</P>
+<P>which X is derived. In the case of an integer or word value, Pred is</P>
+<P>equivalent to the Dec function. Some additional examples:</P>
+<P>Pred(10) = 9</P>
+<P>Pred('B') = 'A'</P>
+<P>See Dec, Inc, Succ</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>PrefixSeg variable</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>PrefixSeg: Word = 0;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>PrefixSeg contains the segment address of the Program Segment Prefix</P>
+<P>(PSP). The PSP contains information about the program loaded in memory,</P>
+<P>including the command line that was used to load the program (so the 
+program</P>
+<P>can access command line parameters), pointers to the memory blocks used by 
+the</P>
+<P>program and other information. PrefixSeg is used in the example TSR 
+program</P>
+<P>shown in Chapter 11 of this book. For further details about the data 
+contained</P>
+<P>in the PSP, consult Appendix F of DOS Programmer's Reference, 2nd edition, 
+Que</P>
+<P>Books, 1989. </P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Ptr function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Ptr( Seg, Ofs : Word) : Pointer;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>{ Using Ptr to manufacture a pointer into the DOS data area</P>
+<P>to obtain the number of Kbytes of low memory available to</P>
+<P>DOS. On most systems today, this will always </P>
+<P>be 640k bytes. }</P>
+<P>var</P>
+<P>DOSMemory : word;</P>
+<P>begin</P>
+<P>DOSMemory:= Word(Ptr( $40, 19 )^);</P>
+<P>Writeln('Low DOS Memory, in k bytes=', DOSMemory);</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Ptr is used to create a pointer to a specific memory address, specified 
+by</P>
+<P>Seg:Ofs.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Random function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Random [ (Range: Word) ] : Word</P>
+<P>or</P>
+<P>function Random [ (Range: Word) ] : Real;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>{ On an EGA or VGA monitor, randomly rearrange the colors in</P>
+<P>the palette }</P>
+<P>Randomize;</P>
+<P>repeat</P>
+<P>SetPalette( Random(GetMaxColors), Random(GetMaxColors));</P>
+<P>Delay ( 50 );</P>
+<P>until Keypressed;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Random produces a pseudo-random sequence of numbers. In its default</P>
+<P>usage, Random returns a Real random value between 0 and 1 ( 0&lt;= Random 
+&lt; 1). </P>
+<P>Each subsequent call to Random returns another number in the 
+pseudo-random</P>
+<P>sequence.</P>
+<P>If you specify a Range value, Random returns a Word value betetween 0 up</P>
+<P>to Range ( 0&lt;= Random &lt; Range). For instance, Random(10) returns random 
+values</P>
+<P>in the range of 0 to 9.</P>
+<P>The specific sequence generated by Random depends upon the initial value</P>
+<P>of the RandSeed variable, which is set by Randomize. If you do not call</P>
+<P>Randomize at the start of your program, every time that your program 
+executes</P>
+<P>it will generate the same random number sequence.</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Randomize procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Randomize;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Randomize sets the RandSeed variable to a value translated from the</P>
+<P>current system clock time. Generally you will wish to call Randomize at 
+the</P>
+<P>start of your program. If you do not call Randomize, your program will</P>
+<P>generate the same random number sequence each time that it is executed. 
+You</P>
+<P>can select a specific random number sequence by initializing the RandSeed</P>
+<P>variable to a value of your own choosing. See the description of 
+RandSeed.</P><BR WP="BR1"><BR WP="BR2">
+<P></P><BR WP="BR1"><BR WP="BR2">
+<P>RandSeed variable</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>RandSeed : Longint;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>RandSeed := 99879;</P>
+<P>repeat</P>
+<P>SetPalette( Random(GetMaxColors), Random(GetMaxColors) );</P>
+<P>Delay ( 50 );</P>
+<P>until Keypressed;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>RandSeed contains the random number generator seed value. By explicitly</P>
+<P>setting RandSeed to a value of your choosing, you can repeatedly generate 
+the</P>
+<P>same random number sequence. </P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Read procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Purpose:</P>
+<P>The Read procedure inputs values from the keyboard or text file and</P>
+<P>assigns the values to variables. When used on typed files, Read reads the 
+next</P>
+<P>file component into a variable.</P>
+<P>By setting {$I-}, you can manually check for errors that may occur when</P>
+<P>reading data by checking the result code from IOResult.</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Text files</P>
+<P>Declaration: </P>
+<P>procedure Read( [var F: Text; ] V1 [, V2, ..., Vn ] );</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Description:</P>
+<P>When reading data from a text file or the system input (keyboard) file,</P>
+<P>the behavior of Read depends on the data type of the variables to receive 
+the</P>
+<P>data and the position of the file pointer (for example, at end of file). 
+The</P>
+<P>basic operation is to copy data from the input, convert if necessary to 
+the</P>
+<P>appropriate format, and place into one of the parameter variables. Read 
+may</P>
+<P>have from 1 to many variables specified, and the variable type may be 
+different</P>
+<P>for each of the variables. For example, to read 2 integers and a single 
+real</P>
+<P>value, write:</P>
+<P>var</P>
+<P>N1, N2 : Integer;</P>
+<P>X : Real;</P>
+<P>...</P>
+<P>Read( N1, N2, X );</P><BR WP="BR1"><BR WP="BR2">
+<P>You should type the response to this input using blanks, tabs or the Enter 
+key</P>
+<P>to separate each of the values, such as,</P>
+<P>57 68 2345.987</P>
+<P>Interestingly, you may use the Enter key to separate each value, such as,</P>
+<P>57 &lt;Enter&gt;</P>
+<P>68 &lt;Enter&gt;</P>
+<P>2345.987 &lt;Enter&gt;</P><BR WP="BR1"><BR WP="BR2">
+<P>Important! The Dangling Enter key!</P>
+<P>In the previous example, the last &lt;Enter&gt; remains in the input buffer. 
+</P>
+<P>Forthis reason, when reading input from the keyboard, it is recommended 
+that</P>
+<P>you use the Readln procedure instead of Read. Readln behaves identically 
+to</P>
+<P>Read except that Readln swallows and disgards the Enter key.</P>
+<P>From a user interface perspective, it would be preferable to allow 
+numeric</P>
+<P>input values to be separated by the comma "," character. Unfortunately, 
+Readln</P>
+<P>does not support this capability.</P>
+<P>The details of how Read performs on the various data types are described</P>
+<P>in the following sections. Also see the closely related procedure, Readln, 
+and</P>
+<P>the output procedures Write and Writeln.</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>String</P>
+<P>Read copies input characters to the string variable, until it encounters</P>
+<P>an end-of-line or end-of-file condition. The end-of-line character is 
+never</P>
+<P>included in the data copied to the string variable. When reading data from 
+a</P>
+<P>text file, the next Read operation begins at the previous end-of-line</P>
+<P>character. Thinking that it is at the end of another line, Read returns a 
+null</P>
+<P>string. The result of this is that Read only reads the first line and 
+then</P>
+<P>gets stuck on the end-of-line character. The solution is to use Readln 
+for</P>
+<P>reading successive lines of text.</P>
+<P>If the input line exceeds the defined maximum length for the string</P>
+<P>variable, then only that portion of the text that will fit is read into 
+the</P>
+<P>string variable. The remaining text out to the next end-of-line character 
+is</P>
+<P>disgarded.</P><BR WP="BR1"><BR WP="BR2">
+<P>Integer</P>
+<P>When reading integer values to an integer variable, Read skips over</P>
+<P>leading blanks and tabs and then reads until encountering the next blank, 
+tab,</P>
+<P>end-of-line character or end-of-file. The characters that is has read are 
+then</P>
+<P>converted to an integer value. If these characters do not correspond to 
+the</P>
+<P>proper format for an integer, an error condition occurs. You can trap 
+these</P>
+<P>errors by setting {$I-} and checking the value of IOResult. </P>
+<P>If the end-of-file is reached while reading the characters that make up 
+an</P>
+<P>integer value, then the integer value is set to 0.</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Real</P>
+<P>When reading real number values to a real variable, Read skips over</P>
+<P>leading blanks and tabs and then reads characters until encountering the 
+next</P>
+<P>blank, tab, end-of-line character or end-of-file. The characters that it 
+has</P>
+<P>read, assuming that they correspond to the proper format for a real 
+constant</P>
+<P>are then converted to a real value and assigned to the variable. If the</P>
+<P>characters have an invalid format for a real constant, then an error 
+occurs.</P><BR WP="BR1"><BR WP="BR2">
+<P>Char</P>
+<P>Read (Ch), where Ch is a Char data type, reads the next single character</P>
+<P>from the file and copies the character to Ch. If the file is positioned at 
+the</P>
+<P>end of file, Ch is set to Chr(26) to mark the end-of-file. If the file 
+pointer</P>
+<P>is positioned on an end-of-line character, then Ch is set to Chr(13). 
+Note</P>
+<P>that while you can use Read(Ch) to read an individual character from the</P>
+<P>standard input or keyboard, you must still press the Enter key to terminate 
+the</P>
+<P>input. If you wish to read invididual keystrokes without having to press</P>
+<P>Enter, use the ReadKey function.</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Typed files</P>
+<P>Declaration: </P>
+<P>procedure Read ( F, V1 [, V2, ..., Vn ] );</P><BR WP="BR1"><BR WP="BR2">
+<P>Description:</P>
+<P>In this form, Read is used to read individual recordor (or file</P>
+<P>components) from a disk file. You can read the data in the file 
+sequentially,</P>
+<P>by specifying multiple data values, or by repeatedly calling Read. After 
+each</P>
+<P>record is read, the file pointer is advanced to the next record in the file. 
+</P>
+<P>Toread records at random locations, call Seek to reposition the file pointer 
+to</P>
+<P>a new location in the file. As with all I/O operations, you can manually 
+check</P>
+<P>for I/O errors by setting the {$I-} compiler option and checking the 
+result</P>
+<P>value returned by IOResult.</P>
+<P>For further information on record file operations, see chapter 3, "Disk</P>
+<P>File operations".</P>
+<P>See Seek, Write</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>ReadKey function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function ReadKey : Char;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>1 { KEYTEST.PAS }</P>
+<P>2 Program KeyTest;</P>
+<P>3 Uses</P>
+<P>4 Crt;</P>
+<P>5 Var</P>
+<P>6 Code : Integer;</P>
+<P>7 </P>
+<P>8 </P>
+<P>9 Function GetKey : Integer;</P>
+<P>10 { Pauses for input of a single keystroke from the keyboard and returns</P>
+<P>11 the ASCII value. In the case where an Extended keyboard key is</P>
+<P>pressed,</P>
+<P>12 GetKey returns the ScanCode + 256. The Turbo Pascal ReadKey function</P>
+<P>13 is called to perform the keystroke input. This routine returns a 0</P>
+<P>14 when an Extended key has been typed (e.g. left or right arrow) and we</P>
+<P>15 must read the next byte to determined the Scan code.</P>
+<P>16 }</P>
+<P>17 Var</P>
+<P>18 Ch : Char;</P>
+<P>19 Begin</P>
+<P>20 Ch := ReadKey;</P>
+<P>21 If Ord(Ch) &lt;&gt; 0 Then</P>
+<P>22 GetKey := Ord(Ch) { Return normal ASCII value }</P>
+<P>23 Else</P>
+<P>24 Begin</P>
+<P>25 { Read the DOS Extended SCAN code that follows }</P>
+<P>26 GetKey := Ord(ReadKey) + 256;</P>
+<P>27 End;</P>
+<P>28 End;{GetKey}</P>
+<P>29 </P>
+<P>30 Begin</P>
+<P>31 Repeat</P>
+<P>32 Code := GetKey;</P>
+<P>33 Writeln(Code);</P>
+<P>34 Until Code = 27;</P>
+<P>35 End.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>If a key has already been entered, ReadKey returns the key that was 
+typed.</P>
+<P>Otherwise, ReadKey waits for a key to be pressed on the keyboard. In both</P>
+<P>cases, the key that is entered is not echoed to the screen.</P>
+<P>Normal characters having ASCII codes from 1 to 255 are returned by</P>
+<P>ReadKey. However, the IBM PC supports additional character codes in order 
+to</P>
+<P>recognize the function keys, Ins, Del, and so on. When one of these 
+extended</P>
+<P>keyboard characters is typed at the keyboard, ReadKey returns Chr(0) and 
+you</P>
+<P>must then call ReadKey a second time to read the actual scan code. The</P>
+<P>function GetKey, shown in the example above, provides a simple routine to 
+read</P>
+<P>both normal and extended IBM keyboard values.</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Readln procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Readln( [var F: Text; ] [V1 , V2, ..., Vn ] );</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Purpose:</P>
+<P>Readln is identical to Read except that after reading the input data,</P>
+<P>Readln causes the file pointer to advance to the start of the next line 
+(just</P>
+<P>after the previous end-of-line marker).</P>
+<P>Unlike Read, you can call Readln with no parameters and Readln disgards</P>
+<P>all input characters up to the next end-of-line. Readln, without 
+parameters,</P>
+<P>is often used to wait for the user to press the Enter key, like this:</P>
+<P>Write('Press Enter to continue.');</P>
+<P>Readln;</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Release procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Release (var P: Pointer);</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Release resets the top of heap pointer to the value in P, which should</P>
+<P>have been initialized previously with a call to Mark. See "The Use of Mark 
+and</P>
+<P>Release Procedures" in Chapter 3, "The Turbo Pascal Language" of the 
+Turbo</P>
+<P>Pascal Reference.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Rename procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Rename(var F; Newname : String );</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>var</P>
+<P>OldName: String;</P>
+<P>NewName: String;</P>
+<P>F: File;</P>
+<P>begin</P>
+<P>Write('Old filename: ');</P>
+<P>Readln( OldName );</P>
+<P>Write('New filename: ');</P>
+<P>Readln( NewName );</P>
+<P>Assign(F, OldName);</P>
+<P>Rename(F, NewName );</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>With a filename assigned to file identifier F (using Assign), call Rename</P>
+<P>to change the name of the file to Newname. F must not be open. 
+Interestingly,</P>
+<P>if NewName contains a directory name in addition to the filename, you can 
+use</P>
+<P>Rename to move a file from one directory to another directory, with or 
+without</P>
+<P>a name change. Further, this move is nearly instantaneous, is handled</P>
+<P>internally by DOS shifting its internal file directory around, not by 
+actually</P>
+<P>copying the entire file from one directory to another. For example, to 
+move</P>
+<P>MYFILE from the current subdirectory to the \TOOLS subdirectory, write,</P>
+<P>Assign( F, 'MYFILE' );</P>
+<P>Rename( F, '\TOOLS\MYFILE' );</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Reset procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Reset (var F [: File; RecSize: Word] );</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Example:</P>
+<P>See "Disk file operations" in Chapter 3, "The Turbo Pascal Language".</P><BR 
+WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Reset opens an existing file of any type for subsequent reading or 
+writing</P>
+<P>of data and positions the file pointer to the beginning of the file. In 
+the</P>
+<P>case of text files, Reset sets the file to read-only; if you wish to write to 
+a</P>
+<P>text file, use either Append or Rewrite to open the file. Prior to 
+calling</P>
+<P>Reset, you should assign a filename to the file identifier by calling Assign 
+(a</P>
+<P>null filename '' may be used to open the standard input file).</P>
+<P>The parameter RecSize may only be used with untyped files only and</P>
+<P>specifies a record size to be used when reading or writing blocks of data. 
+If</P>
+<P>unspecified, the default record size is 128 bytes. See 
+BlockRead/BlockWrite</P>
+<P>for additional details on block I/O.</P>
+<P>If the file does not exist, Reset produces an I/O error that can be</P>
+<P>trapped by setting the {$I-} compiler directive and manually checking the</P>
+<P>IOResult return value.</P>
+<P>See Append, Assign, Close, Rewrite, Truncate</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Rewrite procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Rewrite (var F [: File; RecSize: Word] );</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Example:</P>
+<P>See "Disk file operations" in Chapter 3, "The Turbo Pascal Language" of</P>
+<P>The Turbo Pascal Reference.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Rewrite creates a new file. Prior to calling Rewrite, you should call</P>
+<P>Assign to associate a filename (a null filename '' specifies the standard</P>
+<P>output file) with the file identifier F. Rewrite creates a new disk file,</P>
+<P>erasing any previous file with the same name, and in the case of a text 
+file,</P>
+<P>makes the file available for write-only access.</P>
+<P>For untyped files, you can specify a record size parameter in RecSize 
+(see</P>
+<P>BlockRead/BlockWrite). If unspecified, the default record size is 128 
+bytes.</P>
+<P>See Append, Assign, Close, Reset, Truncate</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>RmDir procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure RmDir ( S: String );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Use RmDir to delete an existing - and empty of any files - subdirectory. </P>
+<P>Sspecifies the name of the directory to delete. If the directory still</P>
+<P>contains files, or if the directory does not exist, an I/O error occurs 
+(use</P>
+<P>the {$I-} compiler directive and IOResult to check for errors).</P>
+<P>See MkDir</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Round function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Round ( X: Real );</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>{Round the value of Pi to the nearest's thousandth's place }</P>
+<P>Writeln( Round ( Pi * 1000 ) / 1000.0 );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Where X is a real value, X is rounded to the nearest integer value. When</P>
+<P>X is halfway between two integer values (e.g. 3.5), then X is rounded as</P>
+<P>follows:</P>
+<P>If X &gt; 0, then X is rounded up to the next integer value. Examples: 
+3.5</P>
+<P>becomes 4; 7.5 becomes 8.</P>
+<P>if X &lt; 0, then X is rounded down to the next integer value. Examples: </P>
+<P>-3.5 becomes -4; -7.5 becomes 8.</P>
+<P>The code shown in the example above illustrates a method of using Round 
+to</P>
+<P>round numbers to a particular number of decimal places. In the example, 
+the</P>
+<P>value of Pi, 3.1415926535.... is multiple by 1000, producing 3141.5926535.... 
+</P>
+<P>This value is then rounded to 3142.0, and divided by 1000.0, producing 3.142 
+as</P>
+<P>the value of Pi rounded to the thousandth's place.</P>
+<P>See Int, Trunc</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>RunError procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure RunError [ ( ErrorCode: Byte ) ];</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P></P>
+<P>{$IFDEF Validate}</P>
+<P>if (Temperature &lt; 0.0) or (Temperature &gt; 212.0) then</P>
+<P>RunError( TempOutOfRange );</P>
+<P>{$ENDIF}</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>RunError, like the Halt procedure, stops program execution. RunError,</P>
+<P>however, generates a run-time error by setting ErrorAddr equal to the 
+address</P>
+<P>of the statement that called RunError, and if specified, sets ExitCode to</P>
+<P>ErrorCode.</P>
+<P>A good use for RunError is to assist in debugging your programs by 
+placing</P>
+<P>internal consistency checks into your code. For example, inside your code, 
+you</P>
+<P>may wish to place special code to insure that values are always within 
+their</P>
+<P>specified range, that pointers are non-nil, and so on. An invalid value</P>
+<P>indicates that your program is not operating correctly, so you can call</P>
+<P>RunError to force an immediate halt to program execution. Normally, you 
+should</P>
+<P>place this type of check code inside of conditional compilation statements 
+so</P>
+<P>that you can remove it from the final version of your program.</P>
+<P>See ErrorAddr, ExitCode, ExitProc, Halt</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Seek procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Seek(var F; N: Longint);</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>Also see "Random Access Data Files" in Chapter 3, "The Turbo Pascal</P>
+<P>Language".</P><BR WP="BR1"><BR WP="BR2">
+<P>type</P>
+<P>TDataRecord = record</P>
+<P>Name : String[20];</P>
+<P>PhoneNumber : String[14];</P>
+<P>Age : Integer;</P>
+<P>Available : Boolean;</P>
+<P>end;</P>
+<P>var</P>
+<P>RandomFile : File of TDataRecord;</P>
+<P>...</P>
+<P>Write('Enter number of record to edit: ');</P>
+<P>Readln( RecordNum );</P>
+<P>Seek( RandomFile, RecordNum );</P>
+<P>Read( RandomFile, DataRecord);</P>
+<P>if DataRecord.Available then</P>
+<P>Writeln('Record #', RecordNum, ' does not contain any data.');</P><BR 
+WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>When performing random accesss to a disk file, Seek is used to position</P>
+<P>the file pointer of file F, to the Nth component of the file. Another way 
+of</P>
+<P>saying that is that Seek positions to the Nth record in the file. The 
+next</P>
+<P>read or write operation will be made to record N.</P>
+<P>When you need to add new records to the end of a random access file, you</P>
+<P>can use Seek to position to the last record, plus 1. This way the next 
+write</P>
+<P>will append a new record to the end of the file. A convenient way to 
+access</P>
+<P>the last record is to write,</P>
+<P>Seek ( F, FileSize(F) );</P>
+<P>since FileSize returns the current filesize in terms of file components 
+or</P>
+<P>records.</P>
+<P>See FilePos, FileSize, Read, Reset, Rewrite, Write</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>SeekEof function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function SeekEof [ ( var F: Text ); ] </P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Text files often contain extra blanks, tabs or blank lines after the last</P>
+<P>useful data contained in the file. For this reason, its possible that the</P>
+<P>Eof(F) function will return False, even though the next Read (F) will 
+encounter</P>
+<P>an end of file condition. The solution is to call SeekEof instead of Eof. 
+</P>
+<P>SeekEof skips ahead, past any blanks, tabs or blank lines to determine if 
+the</P>
+<P>current file pointer is at the logical end of file.</P>
+<P>Make sure that you use SeekEof only on open text files, and no other file</P>
+<P>types. To manually check for file errors, set the {$I-} compiler directive 
+and</P>
+<P>check IOResult.</P>
+<P>See Eof</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>SeekEoln function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: function SeekEoln[ (var F: Text); ]</P>
+<P>Purpose:</P>
+<P>SeekEoln exists for the same reason as SeekEof (See SeekEof). SeekEoln</P>
+<P>skips over trailing blanks and tabs in a line to locate the end-of-line 
+marker.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2">
+<P>Seg function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Seg(X): Word;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Computes and returns the segment part of the segment:offset address of X,</P>
+<P>where X is any identifier, including variables, procedures and functions.</P>
+<P>See Addr, Ofs</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>SetCBreak procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure SetCBreak( Break: Boolean);</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>The DOS operating system periodically checks for a the Ctrl-Break key</P>
+<P>combination being pressed during program execution. As you know, pressing</P>
+<P>Ctrl-Break interrupts the flow of program execution. However, the actual</P>
+<P>processing of the Ctrl-Break key depends on the state of a DOS internal</P>
+<P>variable. GetCBreak returns the current state of this flag: if set to 
+True,</P>
+<P>DOS checks for Ctrl-Break at every DOS system call; if False, DOS checks 
+only</P>
+<P>during input/output operations to the console (CON:), printer (LPT:) or</P>
+<P>communications ports (COMx:). </P>
+<P>You can set the state of the Ctrl-Break flag by calling SetCBreak and</P>
+<P>setting Break to True, to enable checking at each DOS system call; or False 
+to</P>
+<P>restrict checking to input/output operations.</P>
+<P>See CheckBreak, GetCBreak</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>SetDate procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure SetDate( Year, Month, Day: Word );</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Sets the DOS system date to the Year, Month and Day parameters, where 
+Year</P>
+<P>should be in the range 1980 to 2099, Month in the range 1 to 12, and Day in 
+the</P>
+<P>range 1 to 31. SetDate does not return an error status; if the date values 
+are</P>
+<P>erroneous, the new date is not set.</P>
+<P>See GetDate, GetTime, SetTime</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>SetFAttr procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure SetFAttr (var F; Attr: Word );</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>Assign(F, 'SCRATCH.DAT' );</P>
+<P>GetFAttr( F, Attr );</P>
+<P>SetFAttr( F, Attr or Hidden ); { Make the file a hidden file }</P><BR 
+WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Every file on the system has associated with it a set of file attributes. 
+</P>
+<P>These attributes indicate if the file is read-only, hidden, or perhaps a</P>
+<P>directory name. You can obtain a file's attribute settings by calling</P>
+<P>GetFAttr, where F is a file variable to which a filename has been assigned 
+with</P>
+<P>Assign (but should not be open).</P>
+<P>Using SetFAttr, you can change the file's attributes, as shown in the</P>
+<P>example above. The bit pattern used for attributes is determined by these</P>
+<P>constants: </P>
+<P>ReadOnly = $01;</P>
+<P>Hidden = $02;</P>
+<P>SysFile = $04;</P>
+<P>VolumeID = $08;</P>
+<P>Directory = $10;</P>
+<P>Archive = $20;</P>
+<P>AnyFile = $3F;</P>
+<P>AnyFile is typically used with FindFirst and FindNext and doesn't really 
+have</P>
+<P>any use here except that it can be used to match any file attributes with 
+an</P>
+<P>and operation. </P>
+<P>Combinations of attributes are set by or'ing the values together, as 
+shown</P>
+<P>in the example above. To get and set the file's access date and time, see</P>
+<P>GetFTime and SetFTime.</P><BR WP="BR1"><BR WP="BR2">
+<P></P><BR WP="BR1"><BR WP="BR2">
+<P>SetFTime procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure SetFTime( var F; Time: Longint );</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>Assign( F, 'FSEARCH.PAS' );</P>
+<P>Reset( F );</P>
+<P>GetFTime ( F, LFileInfo );</P>
+<P>UnpackTime ( LFileInfo, DFileInfo );</P>
+<P>with DFileInfo do</P>
+<P>Writeln(Month, '-', Day, '-', Year,</P>
+<P>' ',Hour:2,':',Min:2,':',Sec:2);</P><BR WP="BR1"><BR WP="BR2">
+<P>{ Change file's date to 1992 }</P>
+<P>DFileInfo.Year := 1992;</P>
+<P>PackTime ( DFileInfo, LFileInfo );</P>
+<P>SetFTime ( F, LFileInfo );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Every file has associated with it, a date and time stamp indicating when</P>
+<P>the file was last written to. You can fetch this date and time information 
+by</P>
+<P>calling GetFTime (see GetFTime). GetFTime returns the date and file time</P>
+<P>packed into a Longint value (see UnpackTime for converting the packed 
+time</P>
+<P>format into individual date and time components).</P>
+<P>The example, above, shows how to use SetFDate to output a new date and</P>
+<P>time stamp to the open file associated with F. DFileInfo is declared as a 
+DT</P>
+<P>record, where DT defines the fields, Month, Day, Year, Hour, Min, Sec. 
+After</P>
+<P>setting the field values, you must use PackTime to convert the record into 
+a</P>
+<P>packed Loingint, prior to calling SetFDate.</P>
+<P>See GetFAttr, GetFTime, PackTime, SetFAttr, UnpackTime</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>SetIntVec procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure SetIntVec( IntNo: Byte; Vector: Pointer);</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Purpose:</P>
+<P>Places an address, Vector, in to the interrupt vector table at entry</P>
+<P>number IntNo, where IntNo is a value from 0 to 255.</P>
+<P>See GetIntVec</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>SetTextBuf procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure SetTextBuf(var F: Text; var Buf [; Size: Word ] );</P><BR 
+WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>(See GetMem for an example of a dynamically allocated text buffer).</P><BR 
+WP="BR1"><BR WP="BR2">
+<P>Program SetTextBufDemo;</P>
+<P>var</P>
+<P>F : Text;</P>
+<P>Buffer : Array[0..1023] of Char;</P>
+<P>TextLine : String;</P><BR WP="BR1"><BR WP="BR2">
+<P>begin</P>
+<P>Assign( F, 'TEMP.PAS' );</P>
+<P>SetTextBuf( F, Buffer );</P>
+<P>Reset( F );</P><BR WP="BR1"><BR WP="BR2">
+<P>while not Eof(F) do</P>
+<P>begin</P>
+<P>Readln( F, TextLine );</P>
+<P>Writeln( TextLine );</P>
+<P>end;</P><BR WP="BR1"><BR WP="BR2">
+<P>Close( F );</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>By default, all text files use an internal 128-byte buffer for reading 
+and</P>
+<P>writing textual data to and from the disk. For faster text file 
+performance,</P>
+<P>programs can create their own text file buffer, of any appropriate size, 
+by</P>
+<P>calling SetTextBuf and passing the name of the buffer as the Buf variable</P>
+<P>parameter. By creating a larger text file buffer, such as 1,024 bytes, 
+you</P>
+<P>will generally see a significant improvement in performance. You don't need 
+to</P>
+<P>specify the Size parameter; by default, SetTextBuf sets the internal text</P>
+<P>buffer size to SizeOf(Buf). The new buffer will be used until you close 
+file</P>
+<P>F, or open a new file using the F file id. After closing the file, be 
+certain</P>
+<P>to properly dispose of the buffer, particularly if the buffer is a 
+dynamic</P>
+<P>variable.</P><BR WP="BR1"><BR WP="BR2">
+<P>Important! Call SetTextBuf Before Calling Append, Reset, or Rewrite</P>
+<P>As a rule of thumb, always call SetTextBuf just prior to calling Append,</P>
+<P>Reset or Rewrite. While you can call SetTextBuf after opening a file, the 
+act</P>
+<P>of switching text buffers can cause a potential loss of data. So just don't 
+do</P>
+<P>that!</P>
+<P>See "Disk file operations" in Chapter 3, or Append, Reset, Rewrite</P><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>SetTime procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure SetTime(Hour, Minute, Second, Sec100: Word);</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Use SetTime to set the system clock. If any of the values are out of the</P>
+<P>permissible ranges (0 to 23 for Hour, 0 to 59 for Minute and Second, and 0 
+to</P>
+<P>100 for Sec100), the time is not changed.</P>
+<P>See GetTime</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>SetVerify procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure SetVerify(Verify: Boolean);</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>By calling SetVerify with Verify set to True, DOS will subsequently 
+verify</P>
+<P>the accuracy of all disk write operations (by rereading the data it just</P>
+<P>wrote). Since this is a time consuming operation, many applications will</P>
+<P>choose not to use this feature. To turn off automatic verification, call</P>
+<P>SetVerify with Verify to False.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Sin function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Sin ( X: Real ) : Real;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P><BR WP="BR1"><BR WP="BR2">
+<P>GetAspectRatio ( Xasp, Yasp );</P>
+<P>{ Compute (X,Y) 10% further out than the radius. }</P>
+<P>X := Round( 1.1 * Radius * Cos ( AngleInRadians ) );</P>
+<P>Y := - Round( 1.1 * Radius * Sin ( AngleInRadians ) *</P>
+<P>(Xasp/Yasp));</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Computes and returns the sine of X, where X is an angle measurement in</P>
+<P>radians. Note that many of the graphics routines use an angle measurement 
+in</P>
+<P>degrees. To convert from degrees to radians, divide the degree measurement 
+by</P>
+<P>180 / Pi.</P>
+<P>See ArcCos/ArcSin, ArcTan, Cos, Tan</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>SizeOf function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function SizeOf( X ) : Word;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>SizeOf computes and returns the total memory storage, in bytes, of its</P>
+<P>parameter X, where X is either a variable or a data type. SizeOf is 
+frequently</P>
+<P>used when allocating memory blocks dynamically (such as GetMem ( PBuffer,</P>
+<P>SizeOf(Buffer) )) and elsewhere.</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Sound procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Sound(Hz : Word);</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Activates the PC's speaker, setting it to a tone having the frequency (in</P>
+<P>hertz or cycles per second) specified by Hz. The only way to turn off the</P>
+<P>speaker, once activated, is to call NoSound. Between calls to Sound and</P>
+<P>NoSound, use the Delay procedure to leave the speaker turned on for a set</P>
+<P>amount of time.</P>
+<P>See Delay, Sound</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>SPtr function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function SPtr : Word;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Returns the value of 80x86 SP (stack pointer) register. SP is always</P>
+<P>relative to the SS (Stack segment) register.</P>
+<P>See SSeg</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Sqr function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Sqr( X ) : &lt;type of X&gt;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Returns X squared, which is equivalent to X * X.</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Sqrt function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Sqrt(X: Real) : Real;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Where X is greater than or equal to 0, Sqrt(X) returns the square root of</P>
+<P>X. Sqrt(X) if not defined for negatives values of X.</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>SSeg function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function SSeg: Word;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Returns the current value of the SS or Stack Segment register of the CPU.</P>
+<P>See SPtr</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Str procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Str(X [: Width [:Decimals] ]; var S: String);</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Purpose:</P>
+<P>When you need to convert a byte, integer, word, longint, or one of the</P>
+<P>real data types to a string representation, use the Str procedure, 
+specifying</P>
+<P>an optional field Width and number of Decimals of accuracy. For example,</P>
+<P>Str( 3.14159, S );</P>
+<P>sets S equal to '3.1415900000E+00'. To convert the value to a decimal</P>
+<P>notation, you must specify the Width and Decimals parameters, where Width</P>
+<P>specifies the overall length of the resulting string, and Decimals 
+specifies</P>
+<P>the number of decimal places to be included in the result. For example,</P>
+<P>Str( 3.14159:5:2, S );</P>
+<P>sets S equal to '3.14'. Changing Decimals from 2 to 4 sets S equal to</P>
+<P>'3.1416'. Note: The value of X is rounded, as needed, to fit within the</P>
+<P>specified width and decimal places.</P>
+<P>To convert the string representation of a number, say '3.14159' to the</P>
+<P>internal numeric format, use the Val procedure.</P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Succ function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Succ(X) : &lt;same type as X&gt;;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Where X is any ordinal value, Succ(X) returns the successor of X. For</P>
+<P>example, the Succ(9) is 10. See Pred for an example involving ordinal 
+types.</P>
+<P>See Inc, Pred</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Swap function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Swap(X) : &lt;same type as X&gt;;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>When X is either an integer or word value, Swap(X) returns the result of</P>
+<P>swapping the high and low order bytes of X. You can examine the high or 
+low</P>
+<P>order bytes of an integer or word value using the Hi and Lo functions.</P><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>SwapVectors procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure SwapVectors;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>See Exec.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>SwapVectors is normally used before and after calling the Exec procedure,</P>
+<P>which is used to launch another application. Essentially, SwapVectors 
+results</P>
+<P>in saving the state of the interrupt vectors before a call to Exec, and</P>
+<P>restoring the vector table upon return. This helps prevent problems that 
+may</P>
+<P>occur if your application depends on specific settings in the interrupt 
+vector</P>
+<P>table - settings that may be changed by the application which is 
+launched.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Test8087 variable</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>Test8087: Byte = 0;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>When a Turbo Pascal program starts up, the initialization code determines</P>
+<P>if the 8087 math coprocessor is available for use, and sets Test8087 as</P>
+<P>follows:</P><BR WP="BR1"><BR WP="BR2">
+<P>Value Meaning</P>
+<P>0 No math coprocessor found.</P>
+<P>1 8087 available.</P>
+<P>2 80287 available.</P>
+<P>3 80387 available.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>TextAttr variable</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>TextAttr: Byte;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>uses Crt;</P>
+<P>begin</P>
+<P>TextColor(3);</P>
+<P>TextBackground(5);</P>
+<P>Writeln('Foreground color=', TextAttr and 15);</P>
+<P>Writeln('Background color=', (TextAttr shr 4) and 15);</P>
+<P>Readln;</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Stores the currently defined text attributes (color, background color) in</P>
+<P>internal format.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>TextBackground procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure TextBackground( Color: Byte );</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Text written to the display has two color attributes: a foreground color</P>
+<P>and a background color. TextBackground sets the current background color</P>
+<P>attribute to the value of Color, such that all text output following the 
+call</P>
+<P>to TextBackground will be drawn with the specified background color. 
+Color</P>
+<P>should have a value from 0 to 7, to choose one of the 8 possible 
+background</P>
+<P>colors. You may substitute one of the following constants for your color</P>
+<P>choice:</P>
+<P>Black 0</P>
+<P>Blue 1</P>
+<P>Green 2</P>
+<P>Cyan 3</P>
+<P>Red 4</P>
+<P>Magenta 5</P>
+<P>Brown 6</P>
+<P>LightGray 7</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>TextColor procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure TextColor(Color: Byte);</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Text written to the display has two color attributes, a foreground color</P>
+<P>and a background color. TextColor sets the foreground color attribute to 
+the</P>
+<P>value of Color, so that all subsequent text output will be written in the</P>
+<P>selected color, using the current TextBackground color. Foreground color</P>
+<P>choices may range from 0 to 15, with values 8 through 15 referred to as 
+"high</P>
+<P>intensity" equivalents of colors 0 to 7. You may use the following 
+constants</P>
+<P>to select the color choice:</P>
+<P></P>
+<P>Black 0</P>
+<P>Blue 1</P>
+<P>Green 2</P>
+<P>Cyan 3</P>
+<P>Red 4</P>
+<P>Magenta 5</P>
+<P>Brown 6</P>
+<P>LightGray 7</P>
+<P>DarkGray 8</P>
+<P>LightBlue 9</P>
+<P>LightGreen 10</P>
+<P>LightCyan 11</P>
+<P>LightRed 12</P>
+<P>LightMagenta 13</P>
+<P>Yellow 14</P>
+<P>White 15</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>TextMode procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure TextMode(Mode: Word);</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>TextMode ( CO80 );</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Most of today's video displays support a variety of text operating modes,</P>
+<P>including both 40 and 80 column wide displays, color and black &amp; white 
+display</P>
+<P>modes, and for EGA and VGA displays, the ability to display 43 or 50 lines 
+of</P>
+<P>text. The TextMode procedure selects the appropriate display mode by 
+setting</P>
+<P>Mode to one of the following constants:</P><BR WP="BR1"><BR WP="BR2">
+<P>BW40 Selects B&amp;W in 40 x 25 line display mode</P>
+<P>BW80 Selects B&amp;W in 80 x25 line display mode</P>
+<P>Mono Selects B&amp;W in 80 x25 line on monochrome</P>
+<P>display adaptor card</P>
+<P>CO40 Selects color in 40 x 25 line display mode</P>
+<P>CO80 Selects color in 80 x 25 line display mode</P>
+<P>C40 Same as CO40</P>
+<P>C80 Same as CO80</P>
+<P>LastMode Restores the previous video mode prior to</P>
+<P>program startup.</P><BR WP="BR1"><BR WP="BR2">
+<P>The selected text mode takes effect immediately and results in the screen 
+being</P>
+<P>cleared.</P>
+<P>LastMode is a variable and it stores the contents of the video mode at 
+the</P>
+<P>time the program was started. If your program changes video modes during</P>
+<P>program execution, you may wish to save the value of LastMode so that you 
+can</P>
+<P>restore the appropriate video mode at program termination (also see 
+ExitProc).</P>
+<P>You may also use TextMode to select 43 or 50 line mode for use on EGA/VGA</P>
+<P>displays by adding or or'ing the constant Font8x8 (where Font8x8 = 256 
+and</P>
+<P>selects a small font for use in the higher resolution modes) to the mode</P>
+<P>selection constant, like this:</P>
+<P>TextMode( LastMode and 255 or Font8x8 );</P>
+<P>In this form, the current video mode (such as 80 column color) is retained 
+but</P>
+<P>the number of lines is increased to 43 or 50 lines, depending on your 
+display. </P>
+<P>You may explicitly select both a video mode and 43 or 50 line mode by 
+writing:</P>
+<P>TextMode( CO80 + Font8x8 );</P>
+<P>To switch back to 25 line mode and maintain the the other mode settings, 
+you</P>
+<P>can write,</P>
+<P>TextMode( LastMode and 255 );</P>
+<P>or specifically set a new mode, such as,</P>
+<P>TextMode( BW80 );</P>
+<P>You can also use the Lo() and Hi() functions to check the value of LastMode. 
+</P>
+<P>Hi(LastMode) returns Font8x8 if 43/50 line mode is in effect. 
+Lo(LastMode)</P>
+<P>returns the current video mode.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Trunc function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function Trunc( X: Real ): Longint;</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Trunc converts the real value X to a longint integer value by disgarding</P>
+<P>the fractional portion of X. For example, Trunc(3.14159) results in 3. 
+When</P>
+<P>converting real values to Longint, be aware that the range of valid real</P>
+<P>numbers exceeds the permissible range of Longint, and it is possible to 
+receive</P>
+<P>an out of range run-time error.</P>
+<P>See Frac, Int, Round</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Truncate procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Truncate(var F);</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>When using any open file, other than text files, Truncate(F) disgards all</P>
+<P>current data in the file from the current file pointer position on to the 
+end</P>
+<P>of the file, effectively making the current file position the new end of 
+file.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2">
+<P>Unpacktime procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure UnpackTime(Time: Longint; var DT: DateTime);</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Unit: Dos</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>uses dos;</P>
+<P>var</P>
+<P>F : Text;</P>
+<P>LFileInfo : Longint;</P>
+<P>DFileInfo : DateTime; { declared in Dos unit }</P>
+<P>begin</P>
+<P>Assign( F, 'FSEARCH.PAS' );</P>
+<P>Reset( F );</P>
+<P>GetFTime ( F, LFileInfo );</P>
+<P>UnpackTime ( LFileInfo, DFileInfo );</P>
+<P>with DFileInfo do</P>
+<P>Writeln(Month, '-', Day, '-', Year,</P>
+<P>' ',Hour:2,':',Min:2,':',Sec:2);</P>
+<P>Readln;</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>The procedures GetFTime, SetFTime, FindFirst and FindNext all use a</P>
+<P>special packed date/time format that packs the date and time information into 
+a</P>
+<P>Longint value. To convert the Longint packed representation into 
+individual</P>
+<P>date and time components, use UnPackTime. To convert back to packed 
+format,</P>
+<P>use PackTime.</P>
+<P>UnPackTime converts its Time parameter value into the contents of the DT</P>
+<P>record parameter variable. DT contains separate fields for Year, Month, 
+Day,</P>
+<P>Hour, Min and Sec, each a Word type value. You can use these fields to 
+display</P>
+<P>the date or time of a file in traditional date or time formats.</P><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>UpCase function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function UpCase (Ch: Char): Char;</P><BR WP="BR1"><BR WP="BR2">
+<P>Example:</P>
+<P>function Uppercase( S : String ): String;</P>
+<P>var</P>
+<P>I : Integer;</P>
+<P>begin</P>
+<P>for I := 1 to Length(S) do</P>
+<P>S[I] := Upcase(S[I]);</P>
+<P>Uppercase := S;</P>
+<P>end;</P><BR WP="BR1"><BR WP="BR2">
+<P>begin</P><BR WP="BR1"><BR WP="BR2">
+<P>Writeln(Uppercase('Now is the time for all good men and women...'));</P>
+<P>Readln;</P><BR WP="BR1"><BR WP="BR2">
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>UpCase converts its parameter Ch to uppercase, (if Ch is a letter from 
+'a'</P>
+<P>to 'z') or makes no changes if Ch is not a lower case letter, and returns 
+the</P>
+<P>new value as its return result. The example above shows a simple function 
+to</P>
+<P>convert an entire string to upper case.</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Val procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Val(S: String; var V; var Code: Integer);</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Example:</P>
+<P>uses Crt;</P>
+<P>var</P>
+<P>S : String;</P>
+<P>Result : Real;</P>
+<P>ErrCode : Integer;</P>
+<P>begin</P>
+<P>ClrScr;</P>
+<P>Gotoxy(1,10);</P>
+<P>Write('Enter number: ');</P>
+<P>Readln(S);</P>
+<P>{$R-}</P>
+<P>Val( S, Result, ErrCode );</P>
+<P>if ErrCode = 0 then</P>
+<P>Writeln(S, ' converted successfully to ', Result )</P>
+<P>else</P>
+<P>begin</P>
+<P>Gotoxy( 14+ErrCode, 11 );</P>
+<P>Write('^ invalid character in number.');</P>
+<P>end;</P>
+<P>Readln;</P>
+<P>end.</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Val converts a string containing a number, into its internal numeric</P>
+<P>format for the appropriate variable type, such as integer or real. The 
+string</P>
+<P>to convert is passed as parameter S and is returned in variable parameter V. 
+</P>
+<P>The string to convert must contain a valid number for the type of the</P>
+<P>variable parameter V. If an invalid character is detected during the</P>
+<P>conversion, Code is set to the index of the offending character within 
+string</P>
+<P>S. The example code above uses the returned error code to display a pointer 
+to</P>
+<P>the invalid character.</P>
+<P>When converting numbers, its possible for the number in S to be out of</P>
+<P>range of the permissible values for variable V. For example, attempting 
+to</P>
+<P>convert the string value shown below results in a range violation:</P>
+<P>var</P>
+<P>W : Word;</P>
+<P>...</P>
+<P>Val('8799343.5', W, ErrCode );</P><BR WP="BR1"><BR WP="BR2">
+<P>To avoid out of range errors, you can select the {$R-} compiler directive 
+to</P>
+<P>disable automatic range checking. A more thorough procedure, however, is 
+to</P>
+<P>convert the value first to a temporary Real or Longint variable and then use 
+an</P>
+<P>if-then statement to insure that the result falls within the valid range 
+for</P>
+<P>the target variable.</P>
+<P></P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>WhereX function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function WhereX : Byte;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Returns the current X coordinate of the text cursor. WhereY returns the</P>
+<P>corresponding Y coordinate.</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>WhereY function</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>function WhereY: Byte;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>Returns the current Y coordinate of the text cursor. </P><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>WindMin/WindMax variables</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>WindMin, WindMax : Word;</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>WindMin stores the coordinate of the upper left corner and WindMax the</P>
+<P>lower right corner of a window defined by the Window procedure. The values 
+are</P>
+<P>stored such that the X value is stored in the low byte and Y in the high 
+byte. </P>
+<P>Note that in WindMin and WindMax, the stored values are 0-relative, and 
+not</P>
+<P>1-relative as used in the Window procedure. This means that, for example,</P>
+<P>WindMax may contain an X value of 24 (instead of 25) and a Y value of 79</P>
+<P>(instead of 80).</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Window procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Window(X1, Y1, X2, Y2: Byte);</P><BR WP="BR1"><BR WP="BR2">
+<P>Unit: Crt</P><BR WP="BR1"><BR WP="BR2">
+<P>Purpose:</P>
+<P>When your program starts running, the default text window is the entire</P>
+<P>screen, from (1,1) to (80,25). However, you can redefine this text window to 
+a</P>
+<P>smaller region of the screen, and thereafter, all subsequent output and 
+related</P>
+<P>screen I/O statements are performed relative to the location of the window. 
+</P>
+<P>Theparameters (X1,Y1) define the upper left corner of the window, and 
+(X2,Y2)</P>
+<P>define the lower right corner of the window. For example, to define a 
+narrow</P>
+<P>window occupying just the right half of the screen, you may write,</P>
+<P>Window(40, 1, 80, 25 );</P>
+<P>After the call to Window, subsequent I/O will be relative to this window. 
+A</P>
+<P>Gotoxy(10,10) positions the cursor to the physical location (40+10, 
+1+10).</P>
+<P>You can use the Window statement for a variety of purposes because it</P>
+<P>effects all of the following routines:</P>
+<P>ClrEol, ClrScr, DelLine, GotoXY, InsLine, WhereX, WhereY, Read, Readln,</P>
+<P>Write, Writeln</P>
+<P>You can, for instance, create a small viewing window on the screen for</P>
+<P>storing a list of items. Through the use of the DelLine and InsLine</P>
+<P>procedures, you can make text within the viewing window scroll up or down, 
+as</P>
+<P>required.</P>
+<P>Important! Window Doesn't do Windows!</P>
+<P>Window does not provide for overlapping windows nor does it save the</P>
+<P>region behind the active window. Window merely provides a simple way of</P>
+<P>restricting your screen output to specific regions on the screen.</P>
+<P>See WindMin/WindMax</P><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR 
+WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Write procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Purpose:</P>
+<P>When used with text output files, Write outputs one or more values to the</P>
+<P>screen or to a text file. When used with typed files, Write outputs its</P>
+<P>parameter values to the next file component (or record) in the file. For 
+typed</P>
+<P>files only, Seek may be used to position the file pointer to specific 
+record</P>
+<P>location prior to calling Write.</P><BR WP="BR1"><BR WP="BR2">
+<P>Write with Text Files</P>
+<P>Declaration: </P>
+<P>procedure Write( [ var F: Text; ] V1 [, V2, ..., Vn ] );</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Description:</P>
+<P>Write outputs its parameters to the screen or to the text file F, if F is</P>
+<P>specified. For numeric parameters, a MinWidth and a DecPlaces parameter 
+may</P>
+<P>specify the minimum character width allocated to the item, and a number 
+of</P>
+<P>decimal places, respectively, using the format:</P>
+<P>Write( V1: MinWidth : DecPlaces );</P>
+<P>MinWidth and DecPlaces are optional, however MinWidth must be specified 
+in</P>
+<P>order to specify DecPlaces, and DecPlaces may only be specified for real 
+data</P>
+<P>types. If the length of the item being output is less than the MinWidth</P>
+<P>specified, then leading blanks are placed before the item so that it will</P>
+<P>occupy at least MinWidth characters. For example,</P>
+<P>Write('/', '*' : 5, '/');</P>
+<P>displays,</P>
+<P>/ */</P><BR WP="BR1"><BR WP="BR2">
+<P>Formatting Trick</P>
+<P>Many applications need to output large groups of blanks between output</P>
+<P>items, such as when formatting a table of values. While there are several 
+ways</P>
+<P>to accomplish this, such as placing Write(' ') inside a for loop, the 
+easiest</P>
+<P>method uses the MinWidth parameter to specify the number of blanks 
+desired,</P>
+<P>like this, which outputs 40 blanks:</P>
+<P>Write(' ':40);</P><BR WP="BR1"><BR WP="BR2">
+<P>Output formatting for each data type is described in the following 
+sections.</P><BR WP="BR1"><BR WP="BR2">
+<P>String</P>
+<P>String values are copied directly to the output, byte by byte. If</P>
+<P>MinWidth is specified, sufficient leading blanks are output, if needed, to 
+make</P>
+<P>the string occupy exactly MinWidth character spaces. If the string length</P>
+<P>exceeds MinWidth, then the entire string is output.</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Integer, Word, Longint</P>
+<P>Integer values are converted from their internal format to a textual</P>
+<P>representation. If MinWidth is specified, sufficient leading blanks are</P>
+<P>output, if needed, to make the textual representation of the integer as wide 
+as</P>
+<P>MinWidth.</P><BR WP="BR1"><BR WP="BR2">
+<P>Real</P>
+<P>Real values are normally output in exponential notation, such that the</P>
+<P>statement,</P>
+<P>Writeln(Pi)</P>
+<P>outputs,</P>
+<P>3.1415926536E+00</P>
+<P>When MinWidth is not specified for a real value, a default MinWidth of 17 
+is</P>
+<P>assumed. In the exponential floating point format, if MinWidth is less than 
+8,</P>
+<P>MinWidth is set to 8. To output a real value in familiar fixed point 
+notation,</P>
+<P>such as,</P>
+<P>3.1416</P>
+<P>you must specify a MinWidth and DecPlaces parameter. For example,</P>
+<P>Writeln(Pi:7:4);</P>
+<P>outputs,</P>
+<P>3.1416</P>
+<P>Note that this may resulting in rounding of the value, as needed.</P><BR 
+WP="BR1"><BR WP="BR2">
+<P>Char</P>
+<P>Individual character values are output directly. If MinWidth is</P>
+<P>specified, the MinWidth-1 leading blanks are placed before the character 
+value.</P><BR WP="BR1"><BR WP="BR2">
+<P>Boolean</P>
+<P>Boolean values are displayed as either True or False, according to the</P>
+<P>value of the boolean expression.</P><BR WP="BR1"><BR WP="BR2"><BR 
+WP="BR1"><BR WP="BR2">
+<P>Write with Typed Files</P>
+<P>Declaration: </P>
+<P>procedure Write( var F; V1, [, V2, ..., Nn ] );</P><BR WP="BR1"><BR WP="BR2">
+<P>Description:</P>
+<P>When used with typed files, Write outputs one or more components to the</P>
+<P>file, and positions the file pointer to the next record in the file. The 
+Seek</P>
+<P>procedure may be used to position the file pointer prior to writing the 
+record.</P>
+<P>See "Disk file operations" in Chapter 3, "The Turbo Pascal Language" for</P>
+<P>complete details on sequential and random typed file access.</P><BR 
+WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2"><BR WP="BR1"><BR WP="BR2">
+<P>Writeln procedure</P>
+<P>----------------------------------------------------------------</P>
+<P>Declaration: </P>
+<P>procedure Writeln( [var F:Text; ] [V1 [V2, ..., Vn] ] );</P><BR WP="BR1"><BR 
+WP="BR2">
+<P>Purpose:</P>
+<P>For use in displaying output to the screen or writing output to text</P>
+<P>files, Writeln is equivalent to Write, except that it also outputs an</P>
+<P>end-of-line character following the parameters.</P><BR WP="BR1"><BR 
+WP="BR2"></BODY></HTML>
